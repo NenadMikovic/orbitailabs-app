@@ -15,7 +15,7 @@ export function SupabaseVerifyView() {
       <FormHead
         icon={<EmailInboxIcon />}
         title="Please check your email!"
-        description={`We've emailed a 6-digit confirmation code. \nPlease enter the code in the box below to verify your email.`}
+        description={`We've sent you a confirmation link. \nJust click the link in the email to verify your address. \nIf you don't see it, check your spam folder.`}
       />
 
       <FormReturnLink href={paths.auth.supabase.signIn} sx={{ mt: 0 }} />

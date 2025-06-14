@@ -1,7 +1,7 @@
-import { AuthSplitLayout } from 'src/layouts/auth-split';
+import { AuthCenteredLayout } from 'src/layouts/auth-centered';
 
 // ----------------------------------------------------------------------
 
 export default function Layout({ children }) {
-  return <AuthSplitLayout>{children}</AuthSplitLayout>;
+  return <AuthCenteredLayout>{children}</AuthCenteredLayout>;
 }

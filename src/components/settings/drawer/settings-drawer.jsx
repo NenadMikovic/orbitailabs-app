@@ -244,29 +244,7 @@ export function SettingsDrawer({ sx, defaultSettings }) {
 
   const renderFont = () => (
     <LargeBlock title="Font" sx={{ gap: 2.5 }}>
-      {visibility.fontFamily && (
-        <SmallBlock
-          label="Family"
-          canReset={settings.state.fontFamily !== defaultSettings.fontFamily}
-          onReset={() => {
-            settings.setState({ fontFamily: defaultSettings.fontFamily });
-          }}
-        >
-          <FontFamilyOptions
-            value={settings.state.fontFamily}
-            onChangeOption={(newOption) => {
-              settings.setState({ fontFamily: newOption });
-            }}
-            options={[
-              themeConfig.fontFamily.primary,
-              'Inter Variable',
-              'DM Sans Variable',
-              'Nunito Sans Variable',
-            ]}
-            icon={<SvgIcon sx={{ width: 28, height: 28 }}>{settingIcons.font}</SvgIcon>}
-          />
-        </SmallBlock>
-      )}
+      
       {visibility.fontSize && (
         <SmallBlock
           label="Size"
@@ -333,8 +311,6 @@ export function SettingsDrawer({ sx, defaultSettings }) {
             {visibility.compactLayout && renderCompactLayout()}
           </Box>
 
-          {(visibility.navColor || visibility.navLayout) && renderNav()}
-          {visibility.primaryColor && renderPresets()}
           {(visibility.fontFamily || visibility.fontSize) && renderFont()}
         </Box>
       </Scrollbar>

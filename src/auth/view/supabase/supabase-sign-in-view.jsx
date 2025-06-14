@@ -19,11 +19,14 @@ import { RouterLink } from 'src/routes/components';
 
 import { Iconify } from 'src/components/iconify';
 import { Form, Field } from 'src/components/hook-form';
+import { AnimateLogoRotate } from 'src/components/animate';
 
 import { useAuthContext } from '../../hooks';
 import { getErrorMessage } from '../../utils';
 import { FormHead } from '../../components/form-head';
 import { signInWithPassword } from '../../context/supabase';
+import { FormSocials } from '../../components/form-socials';
+import { FormDivider } from '../../components/form-divider';
 
 // ----------------------------------------------------------------------
 
@@ -130,6 +133,8 @@ export function SupabaseSignInView() {
 
   return (
     <>
+      <AnimateLogoRotate sx={{ mb: 3, mx: 'auto' }} />
+
       <FormHead
         title="Sign in to your account"
         description={
@@ -140,7 +145,7 @@ export function SupabaseSignInView() {
             </Link>
           </>
         }
-        sx={{ textAlign: { xs: 'center', md: 'left' } }}
+        
       />
 
       {!!errorMessage && (
@@ -152,6 +157,13 @@ export function SupabaseSignInView() {
       <Form methods={methods} onSubmit={onSubmit}>
         {renderForm()}
       </Form>
+
+      <FormDivider />
+
+      <FormSocials
+              signInWithGoogle={() => {}}
+              signInWithTwitter={() => {}}
+            />
     </>
   );
 }

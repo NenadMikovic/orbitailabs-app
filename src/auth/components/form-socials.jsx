@@ -8,7 +8,6 @@ import { Iconify } from 'src/components/iconify';
 export function FormSocials({
   sx,
   signInWithGoogle,
-  singInWithGithub,
   signInWithTwitter,
   ...other
 }) {
@@ -26,9 +25,6 @@ export function FormSocials({
     >
       <IconButton color="inherit" onClick={signInWithGoogle}>
         <Iconify width={22} icon="socials:google" />
-      </IconButton>
-      <IconButton color="inherit" onClick={singInWithGithub}>
-        <Iconify width={22} icon="socials:github" />
       </IconButton>
       <IconButton color="inherit" onClick={signInWithTwitter}>
         <Iconify width={22} icon="socials:twitter" />

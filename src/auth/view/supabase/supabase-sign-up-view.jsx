@@ -19,10 +19,13 @@ import { RouterLink } from 'src/routes/components';
 
 import { Iconify } from 'src/components/iconify';
 import { Form, Field } from 'src/components/hook-form';
+import { AnimateLogoRotate } from 'src/components/animate';
 
 import { getErrorMessage } from '../../utils';
 import { signUp } from '../../context/supabase';
 import { FormHead } from '../../components/form-head';
+import { FormSocials } from '../../components/form-socials';
+import { FormDivider } from '../../components/form-divider';
 import { SignUpTerms } from '../../components/sign-up-terms';
 
 // ----------------------------------------------------------------------
@@ -137,17 +140,19 @@ export function SupabaseSignUpView() {
 
   return (
     <>
+      <AnimateLogoRotate sx={{ mb: 3, mx: 'auto' }} />
+
       <FormHead
-        title="Get started absolutely free"
+        title="Get started — it&apos;s completely free"
         description={
           <>
             {`Already have an account? `}
             <Link component={RouterLink} href={paths.auth.supabase.signIn} variant="subtitle2">
-              Get started
+              Sign in
             </Link>
           </>
         }
-        sx={{ textAlign: { xs: 'center', md: 'left' } }}
+        
       />
 
       {!!errorMessage && (
@@ -161,6 +166,13 @@ export function SupabaseSignUpView() {
       </Form>
 
       <SignUpTerms />
+
+      <FormDivider />
+
+      <FormSocials
+        signInWithGoogle={() => {}}
+        signInWithTwitter={() => {}}
+      />
     </>
   );
 }
