@@ -14,7 +14,7 @@ import { _contacts, _notifications } from 'src/_mock';
 import { Logo } from 'src/components/logo';
 import { useSettingsContext } from 'src/components/settings';
 
-import { useMockedUser } from 'src/auth/hooks';
+import { useAuthContext } from 'src/auth/hooks';
 
 import { NavMobile } from './nav-mobile';
 import { VerticalDivider } from './content';
@@ -39,7 +39,7 @@ import { MainSection, layoutClasses, HeaderSection, LayoutSection } from '../cor
 export function DashboardLayout({ sx, cssVars, children, slotProps, layoutQuery = 'lg' }) {
   const theme = useTheme();
 
-  const { user } = useMockedUser();
+  const { user } = useAuthContext();
 
   const settings = useSettingsContext();
 
@@ -114,11 +114,11 @@ export function DashboardLayout({ sx, cssVars, children, slotProps, layoutQuery 
             <VerticalDivider sx={{ [theme.breakpoints.up(layoutQuery)]: { display: 'flex' } }} />
           )}
 
-          {/** @slot Workspace popover */}
+         {/** @slot Workspace popover *
           <WorkspacesPopover
             data={_workspaces}
             sx={{ ...(isNavHorizontal && { color: 'var(--layout-nav-text-primary-color)' }) }}
-          />
+          /> */}
         </>
       ),
       rightArea: (
@@ -129,11 +129,11 @@ export function DashboardLayout({ sx, cssVars, children, slotProps, layoutQuery 
           {/** @slot Language popover */}
           <LanguagePopover data={allLangs} />
 
-          {/** @slot Notifications popover */}
-          <NotificationsDrawer data={_notifications} />
+          {/** @slot Notifications popover 
+          <NotificationsDrawer data={_notifications} />*/}
 
-          {/** @slot Contacts popover */}
-          <ContactsPopover data={_contacts} />
+          {/** @slot Contacts popover 
+          <ContactsPopover data={_contacts} />*/}
 
           {/** @slot Settings button */}
           <SettingsButton />

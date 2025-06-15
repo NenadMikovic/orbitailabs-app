@@ -10,28 +10,28 @@ export const _account = [
   },
   {
     label: 'Profile',
-    href: '#',
+    href: '/dashboard/user',
     icon: <Iconify icon="custom:profile-duotone" />,
   },
   {
-    label: 'Projects',
+    label: 'Downloads',
     href: '#',
     icon: <Iconify icon="solar:notes-bold-duotone" />,
-    info: '3',
+    info: 'Coming soon',
   },
   {
-    label: 'Subscription',
-    href: '#',
+    label: 'Subscriptions',
+    href: '/dashboard/user/account/billing',
     icon: <Iconify icon="custom:invoice-duotone" />,
   },
   {
     label: 'Security',
-    href: '#',
+    href: '/dashboard/user/account/change-password',
     icon: <Iconify icon="solar:shield-keyhole-bold-duotone" />,
   },
   {
     label: 'Account settings',
-    href: '#',
+    href: '/dashboard/user/account',
     icon: <Iconify icon="solar:settings-bold-duotone" />,
   },
 ];

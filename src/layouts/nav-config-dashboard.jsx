@@ -64,22 +64,22 @@ export const navData = [
   {
     subheader: 'Overview',
     items: [
-      { title: 'App', path: paths.dashboard.root, icon: ICONS.dashboard },
-      { title: 'Ecommerce', path: paths.dashboard.general.ecommerce, icon: ICONS.ecommerce },
-      { title: 'Analytics', path: paths.dashboard.general.analytics, icon: ICONS.analytics },
-      { title: 'Banking', path: paths.dashboard.general.banking, icon: ICONS.banking },
+      { title: 'Dashboard', path: paths.dashboard.root, icon: ICONS.dashboard },
+      { title: 'Manage Licenses', path: paths.dashboard.general.ecommerce, icon: ICONS.ecommerce },
+      { title: 'Downloads', path: paths.dashboard.general.analytics, icon: ICONS.analytics },
+      /**{ title: 'Banking', path: paths.dashboard.general.banking, icon: ICONS.banking },
       { title: 'Booking', path: paths.dashboard.general.booking, icon: ICONS.booking },
       { title: 'File', path: paths.dashboard.general.file, icon: ICONS.file },
-      { title: 'Course', path: paths.dashboard.general.course, icon: ICONS.course },
+      { title: 'Course', path: paths.dashboard.general.course, icon: ICONS.course },*/
     ],
   },
   /**
    * Management
    */
   {
-    subheader: 'Management',
+    subheader: 'AI Trading Tools',
     items: [
-      {
+    /**   {
         title: 'User',
         path: paths.dashboard.user.root,
         icon: ICONS.user,
@@ -91,9 +91,9 @@ export const navData = [
           { title: 'Edit', path: paths.dashboard.user.demo.edit },
           { title: 'Account', path: paths.dashboard.user.account, deepMatch: true },
         ],
-      },
+      },*/
       {
-        title: 'Product',
+        title: 'Session Times',
         path: paths.dashboard.product.root,
         icon: ICONS.product,
         children: [
@@ -104,7 +104,7 @@ export const navData = [
         ],
       },
       {
-        title: 'Order',
+        title: 'Economic Calendar',
         path: paths.dashboard.order.root,
         icon: ICONS.order,
         children: [
@@ -113,7 +113,7 @@ export const navData = [
         ],
       },
       {
-        title: 'Invoice',
+        title: 'Live Charts',
         path: paths.dashboard.invoice.root,
         icon: ICONS.invoice,
         children: [
@@ -124,18 +124,7 @@ export const navData = [
         ],
       },
       {
-        title: 'Blog',
-        path: paths.dashboard.post.root,
-        icon: ICONS.blog,
-        children: [
-          { title: 'List', path: paths.dashboard.post.root },
-          { title: 'Details', path: paths.dashboard.post.demo.details },
-          { title: 'Create', path: paths.dashboard.post.new },
-          { title: 'Edit', path: paths.dashboard.post.demo.edit },
-        ],
-      },
-      {
-        title: 'Job',
+        title: 'Position Size Calculator',
         path: paths.dashboard.job.root,
         icon: ICONS.job,
         children: [
@@ -146,7 +135,7 @@ export const navData = [
         ],
       },
       {
-        title: 'Tour',
+        title: 'Fundamental Analysis',
         path: paths.dashboard.tour.root,
         icon: ICONS.tour,
         children: [
@@ -156,7 +145,7 @@ export const navData = [
           { title: 'Edit', path: paths.dashboard.tour.demo.edit },
         ],
       },
-      { title: 'File manager', path: paths.dashboard.fileManager, icon: ICONS.folder },
+      /**{ title: 'File manager', path: paths.dashboard.fileManager, icon: ICONS.folder },
       {
         title: 'Mail',
         path: paths.dashboard.mail,
@@ -169,17 +158,28 @@ export const navData = [
       },
       { title: 'Chat', path: paths.dashboard.chat, icon: ICONS.chat },
       { title: 'Calendar', path: paths.dashboard.calendar, icon: ICONS.calendar },
-      { title: 'Kanban', path: paths.dashboard.kanban, icon: ICONS.kanban },
+      { title: 'Kanban', path: paths.dashboard.kanban, icon: ICONS.kanban },*/
     ],
   },
   /**
    * Item state
    */
   {
-    subheader: 'Misc',
+    subheader: 'Community',
     items: [
       {
-        /**
+        title: 'Blog',
+        path: paths.dashboard.post.root,
+        icon: ICONS.blog,
+        children: [
+          { title: 'List', path: paths.dashboard.post.root },
+          { title: 'Details', path: paths.dashboard.post.demo.details },
+          { title: 'Create', path: paths.dashboard.post.new },
+          { title: 'Edit', path: paths.dashboard.post.demo.edit },
+        ],
+      },
+      /**{
+        
          * Permissions can be set for each item by using the `allowedRoles` property.
          * - If `allowedRoles` is not set (default), all roles can see the item.
          * - If `allowedRoles` is an empty array `[]`, no one can see the item.
@@ -192,7 +192,7 @@ export const navData = [
          *
          * Combine with the `checkPermissions` prop to build conditional expressions.
          * Example usage can be found in: src/sections/_examples/extra/navigation-bar-view/nav-vertical.{jsx | tsx}
-         */
+         
         title: 'Permission',
         path: paths.dashboard.permission,
         icon: ICONS.lock,
@@ -272,7 +272,7 @@ export const navData = [
         icon: ICONS.external,
         info: <Iconify width={18} icon="eva:external-link-fill" />,
       },
-      { title: 'Blank', path: paths.dashboard.blank, icon: ICONS.blank },
+      { title: 'Blank', path: paths.dashboard.blank, icon: ICONS.blank },*/
     ],
   },
 ];
