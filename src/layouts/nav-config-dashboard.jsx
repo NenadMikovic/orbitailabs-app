@@ -14,7 +14,7 @@ const icon = (name) => <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/$
 
 const ICONS = {
   job: icon('ic-job'),
-  blog: <Iconify icon="fa-solid:blog" />,
+  blog: icon('ic-blog'),
   chat: icon('ic-chat'),
   mail: icon('ic-mail'),
   user: icon('ic-user'),
@@ -31,21 +31,21 @@ const ICONS = {
   banking: icon('ic-banking'),
   booking: icon('ic-booking'),
   invoice: icon('ic-invoice'),
-  market: <Iconify icon="solar:chart-bold-duotone" />,
+  market: icon('ic-market'),
   calendar: icon('ic-calendar'),
   disabled: icon('ic-disabled'),
-  help: <Iconify icon="streamline-ultimate:laptop-help-message" />,
-  guide: <Iconify icon="solar:book-linear" />,
+  help: icon('ic-help'),
+  guide: icon('ic-guide'),
   analytics: icon('ic-analytics'),
-  downloads: <Iconify icon="bi:box" />,
-  licenses: <Iconify icon="solar:key-linear" />,
-  dashboard: <Iconify icon="material-symbols:space-dashboard-rounded" />,
-  sessions: <Iconify icon="mingcute:time-line" />,
-  insider: <Iconify icon="fluent-mdl2:insights" />,
-  fundamental: <Iconify icon="heroicons:scale" />,
-  calculator: <Iconify icon="mdi:calculator" />,
-  community: <Iconify icon="fluent:people-community-add-20-regular" />,
-  request: <Iconify icon="material-symbols:feedback-outline" />,
+  downloads: icon('ic-downloads'),
+  licenses: icon('ic-key'),
+  dashboard: icon('ic-dashboard'),
+  sessions: icon('ic-time'),
+  insider: icon('ic-insights'),
+  fundamental: icon('ic-scale'),
+  calculator: icon('ic-calc'),
+  community: icon('ic-hub'),
+  request: icon('ic-feedback'),
 };
 
 // ----------------------------------------------------------------------
@@ -183,7 +183,7 @@ export const navData = [
             Coming Soon
           </Label>
         ),
-        caption: 'Trading Community',
+        caption: 'Trading Hub',
         disabled: true,
       },
     ],

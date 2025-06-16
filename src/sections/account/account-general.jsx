@@ -2,6 +2,7 @@ import { z as zod } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { isValidPhoneNumber } from 'react-phone-number-input/input';
+import { useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -16,7 +17,7 @@ import { toast } from 'src/components/snackbar';
 import { Form, Field, schemaHelper } from 'src/components/hook-form';
 
 import { useAuthContext } from 'src/auth/hooks';
-
+import { supabase } from 'src/lib/supabase';
 // ----------------------------------------------------------------------
 
 export const UpdateUserSchema = zod.object({
@@ -45,19 +46,7 @@ export const UpdateUserSchema = zod.object({
 export function AccountGeneral() {
   const { user } = useAuthContext();
 
-  const currentUser = {
-    displayName: user?.displayName,
-    email: user?.email,
-    photoURL: user?.photoURL,
-    phoneNumber: user?.phoneNumber,
-    country: user?.country,
-    address: user?.address,
-    state: user?.state,
-    city: user?.city,
-    zipCode: user?.zipCode,
-    about: user?.about,
-    isPublic: user?.isPublic,
-  };
+  
 
   const defaultValues = {
     displayName: '',
@@ -77,23 +66,89 @@ export function AccountGeneral() {
     mode: 'all',
     resolver: zodResolver(UpdateUserSchema),
     defaultValues,
-    values: currentUser,
   });
+
+const { reset } = methods;
+
+useEffect(() => {
+  const fetchProfile = async () => {
+    if (!user?.id) return;
+
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', user.id)
+      .single();
+
+    if (error) {
+      console.error('Failed to fetch profile', error);
+      return;
+    }
+
+    reset({
+      displayName: data.display_name || '',
+      email: user?.email || '', // email comes from auth, not profiles
+      photoURL: null, // not persisted
+      phoneNumber: data.phone_number || '',
+      country: data.country || null,
+      address: data.address || '',
+      state: data.state || '',
+      city: data.city || '',
+      zipCode: data.zip_code || '',
+      about: data.about || '',
+      isPublic: data.is_public || false,
+    });
+  };
+
+  fetchProfile();
+}, [user?.id, reset]);
+
 
   const {
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = handleSubmit(async (data) => {
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      toast.success('Update success!');
-      console.info('DATA', data);
-    } catch (error) {
-      console.error(error);
+  const onSubmit = handleSubmit(async (formData) => {
+  try {
+    console.log('Submitting for user ID:', user?.id);
+
+    const updatePayload = {
+      display_name: formData.displayName,
+      photo_url: formData.photoURL?.preview || null,
+      phone_number: formData.phoneNumber,
+      country: formData.country,
+      address: formData.address,
+      state: formData.state,
+      city: formData.city,
+      zip_code: formData.zipCode,
+      about: formData.about,
+      is_public: formData.isPublic,
+    };
+
+    console.log('Update payload:', updatePayload);
+
+    const response = await supabase
+      .from('profiles')
+      .update(updatePayload)
+      .eq('id', user?.id)
+      .select('*'); // to return the updated row
+
+    console.log('Supabase update response:', response);
+
+    if (response.error) {
+      toast.error('Failed to update profile.');
+      console.error(response.error);
+    } else {
+      toast.success('Profile updated!');
+      console.log('Updated profile:', response.data);
     }
-  });
+  } catch (err) {
+    console.error(err);
+    toast.error('Unexpected error occurred.');
+  }
+});
+
 
   return (
     <Form methods={methods} onSubmit={onSubmit}>
