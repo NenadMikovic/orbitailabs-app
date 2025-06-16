@@ -5,6 +5,10 @@ import { CONFIG } from 'src/global-config';
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { SvgColor } from 'src/components/svg-color';
+import Divider from '@mui/material/Divider';
+import { Tooltip } from '@mui/material';
+
+
 
 // ----------------------------------------------------------------------
 
@@ -12,7 +16,7 @@ const icon = (name) => <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/$
 
 const ICONS = {
   job: icon('ic-job'),
-  blog: icon('ic-blog'),
+  blog: <Iconify icon="fa-solid:blog" />,
   chat: icon('ic-chat'),
   mail: icon('ic-mail'),
   user: icon('ic-user'),
@@ -29,15 +33,21 @@ const ICONS = {
   banking: icon('ic-banking'),
   booking: icon('ic-booking'),
   invoice: icon('ic-invoice'),
-  product: icon('ic-product'),
+  market: <Iconify icon="solar:chart-bold-duotone" />,
   calendar: icon('ic-calendar'),
   disabled: icon('ic-disabled'),
-  external: icon('ic-external'),
-  subpaths: icon('ic-subpaths'),
-  menuItem: icon('ic-menu-item'),
-  ecommerce: icon('ic-ecommerce'),
+  help: <Iconify icon="streamline-ultimate:laptop-help-message" />,
+  guide: <Iconify icon="solar:book-linear" />,
   analytics: icon('ic-analytics'),
-  dashboard: icon('ic-dashboard'),
+  downloads: <Iconify icon="bi:box" />,
+  licenses: <Iconify icon="solar:key-linear" />,
+  dashboard: <Iconify icon="material-symbols:space-dashboard-rounded" />,
+  sessions: <Iconify icon="mingcute:time-line" />,
+  insider: <Iconify icon="fluent-mdl2:insights" />,
+  fundamental: <Iconify icon="heroicons:scale" />,
+  calculator: <Iconify icon="mdi:calculator" />,
+  community: <Iconify icon="fluent:people-community-add-20-regular" />,
+  request: <Iconify icon="material-symbols:feedback-outline" />,
 };
 
 // ----------------------------------------------------------------------
@@ -65,17 +75,32 @@ export const navData = [
     subheader: 'Overview',
     items: [
       { title: 'Dashboard', path: paths.dashboard.root, icon: ICONS.dashboard },
-      { title: 'Manage Licenses', path: paths.dashboard.general.ecommerce, icon: ICONS.ecommerce },
-      { title: 'Downloads', path: paths.dashboard.general.analytics, icon: ICONS.analytics },
+      { title: 'Manage Licenses', path: paths.dashboard.general.ecommerce, icon: ICONS.licenses },
+      { title: 'Downloads', path: paths.dashboard.general.analytics, icon: ICONS.downloads },
       /**{ title: 'Banking', path: paths.dashboard.general.banking, icon: ICONS.banking },
       { title: 'Booking', path: paths.dashboard.general.booking, icon: ICONS.booking },
       { title: 'File', path: paths.dashboard.general.file, icon: ICONS.file },
       { title: 'Course', path: paths.dashboard.general.course, icon: ICONS.course },*/
+       {
+        title: 'Guides',
+        path: paths.dashboard.product.root,
+        icon: ICONS.guide,
+        children: [
+          { title: 'Stellaris Installation', path: paths.dashboard.product.root },
+          { title: 'How-to-Use Stellaris', path: paths.dashboard.product.demo.details },
+          { title: 'Using Dashboard AI Tools', path: paths.dashboard.product.new },
+        ],
+      },
+      { title: 'Help Desk', path: paths.dashboard.general.analytics, icon: ICONS.help },
+      { title: 'Stellaris Performance', path: paths.dashboard.general.analytics, icon: ICONS.analytics },
     ],
   },
+
   /**
    * Management
    */
+  
+
   {
     subheader: 'AI Trading Tools',
     items: [
@@ -93,57 +118,35 @@ export const navData = [
         ],
       },*/
       {
+        title: 'Market Insider',
+        path: paths.dashboard.mail,
+        icon: ICONS.insider,
+      },
+      {
         title: 'Session Times',
         path: paths.dashboard.product.root,
-        icon: ICONS.product,
-        children: [
-          { title: 'List', path: paths.dashboard.product.root },
-          { title: 'Details', path: paths.dashboard.product.demo.details },
-          { title: 'Create', path: paths.dashboard.product.new },
-          { title: 'Edit', path: paths.dashboard.product.demo.edit },
-        ],
+        icon: ICONS.sessions,
       },
       {
         title: 'Economic Calendar',
         path: paths.dashboard.order.root,
-        icon: ICONS.order,
-        children: [
-          { title: 'List', path: paths.dashboard.order.root },
-          { title: 'Details', path: paths.dashboard.order.demo.details },
-        ],
+        icon: ICONS.calendar,
       },
       {
-        title: 'Live Charts',
+        title: 'Technicals - Live Charts',
         path: paths.dashboard.invoice.root,
-        icon: ICONS.invoice,
-        children: [
-          { title: 'List', path: paths.dashboard.invoice.root },
-          { title: 'Details', path: paths.dashboard.invoice.demo.details },
-          { title: 'Create', path: paths.dashboard.invoice.new },
-          { title: 'Edit', path: paths.dashboard.invoice.demo.edit },
-        ],
+        icon: ICONS.market,
+      },
+      
+      {
+        title: 'Fundamental Analysis',
+        path: paths.dashboard.tour.root,
+        icon: ICONS.fundamental,
       },
       {
         title: 'Position Size Calculator',
         path: paths.dashboard.job.root,
-        icon: ICONS.job,
-        children: [
-          { title: 'List', path: paths.dashboard.job.root },
-          { title: 'Details', path: paths.dashboard.job.demo.details },
-          { title: 'Create', path: paths.dashboard.job.new },
-          { title: 'Edit', path: paths.dashboard.job.demo.edit },
-        ],
-      },
-      {
-        title: 'Fundamental Analysis',
-        path: paths.dashboard.tour.root,
-        icon: ICONS.tour,
-        children: [
-          { title: 'List', path: paths.dashboard.tour.root },
-          { title: 'Details', path: paths.dashboard.tour.demo.details },
-          { title: 'Create', path: paths.dashboard.tour.new },
-          { title: 'Edit', path: paths.dashboard.tour.demo.edit },
-        ],
+        icon: ICONS.calculator,
       },
       /**{ title: 'File manager', path: paths.dashboard.fileManager, icon: ICONS.folder },
       {
@@ -171,13 +174,22 @@ export const navData = [
         title: 'Blog',
         path: paths.dashboard.post.root,
         icon: ICONS.blog,
-        children: [
-          { title: 'List', path: paths.dashboard.post.root },
-          { title: 'Details', path: paths.dashboard.post.demo.details },
-          { title: 'Create', path: paths.dashboard.post.new },
-          { title: 'Edit', path: paths.dashboard.post.demo.edit },
-        ],
       },
+    
+      {
+        title: 'OrbitNet',
+        path: paths.dashboard.mail,
+        icon: ICONS.community,
+        info: (
+          <Label color="error" variant="inverted">
+            Coming Soon
+          </Label>
+        ),
+        caption: 'Trading Community',
+        disabled: true,
+      },
+    ],
+  },
       /**{
         
          * Permissions can be set for each item by using the `allowedRoles` property.
@@ -273,6 +285,10 @@ export const navData = [
         info: <Iconify width={18} icon="eva:external-link-fill" />,
       },
       { title: 'Blank', path: paths.dashboard.blank, icon: ICONS.blank },*/
+       {
+    subheader: 'Feedback',
+    items: [
+      { title: 'Request a Feature', path: paths.dashboard.general.ecommerce, icon: ICONS.request }
     ],
-  },
-];
+  },   
+]

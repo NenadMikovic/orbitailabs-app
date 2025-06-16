@@ -135,7 +135,7 @@ export function AccountGeneral() {
             />
 
             <Button variant="soft" color="error" sx={{ mt: 3 }}>
-              Delete user
+              Delete Account
             </Button>
           </Card>
         </Grid>
