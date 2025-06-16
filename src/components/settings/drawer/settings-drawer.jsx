@@ -12,7 +12,6 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useColorScheme } from '@mui/material/styles';
 
-import { themeConfig } from 'src/theme';
 import { primaryColorPresets } from 'src/theme/with-settings';
 
 import { Label } from 'src/components/label';
@@ -21,10 +20,10 @@ import { settingIcons } from './icons';
 import { Iconify } from '../../iconify';
 import { BaseOption } from './base-option';
 import { Scrollbar } from '../../scrollbar';
+import { FontSizeOptions } from './font-options';
 import { SmallBlock, LargeBlock } from './styles';
 import { PresetsOptions } from './presets-options';
 import { FullScreenButton } from './fullscreen-button';
-import { FontSizeOptions, FontFamilyOptions } from './font-options';
 import { useSettingsContext } from '../context/use-settings-context';
 import { NavColorOptions, NavLayoutOptions } from './nav-layout-option';
 
