@@ -91,7 +91,15 @@ export const schemaHelper = {
    * Apply for upload single file.
    */
   file: (props) =>
-    zod.custom().transform((data, ctx) => {
+    zod
+    .custom()
+    .optional() // ✅ allow undefined/null early
+    .transform((data, ctx) => {
+      // ✅ If no file — return early without error
+      if (data === undefined || data === null || data === '') {
+        return null;
+      }
+
       const hasFile = data instanceof File || (typeof data === 'string' && !!data.length);
 
       if (!hasFile) {

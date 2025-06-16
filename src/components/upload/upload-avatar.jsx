@@ -20,24 +20,41 @@ export function UploadAvatar({ sx, error, value, disabled, helperText, className
     ...other,
   });
 
-  const hasFile = !!value;
+  const hasFile = value instanceof File || (typeof value === 'string' && value.trim() !== '');
 
   const hasError = isDragReject || !!error;
 
   const [preview, setPreview] = useState('');
 
-  useEffect(() => {
-    if (typeof value === 'string') {
-      setPreview(value);
-    } else if (value instanceof File) {
-      setPreview(URL.createObjectURL(value));
-    }
-  }, [value]);
+ useEffect(() => {
+  if (!value) {
+    setPreview('');
+    return;
+  }
+
+  if (typeof value === 'string') {
+    setPreview(value);
+  } else if (value instanceof File) {
+    setPreview(URL.createObjectURL(value));
+  }
+}, [value]);
+
+
 
   const renderPreview = () =>
-    hasFile && (
-      <Image alt="Avatar" src={preview} sx={{ width: 1, height: 1, borderRadius: '50%' }} />
-    );
+  hasFile &&
+  preview &&
+  (
+    <Image
+      alt="Avatar"
+      src={preview}
+      sx={{ width: 1, height: 1, borderRadius: '50%' }}
+      onError={(e) => {
+        e.target.src = '/default-avatar.png';
+      }}
+    />
+  );
+
 
   const renderPlaceholder = () => (
     <Box
@@ -89,8 +106,16 @@ export function UploadAvatar({ sx, error, value, disabled, helperText, className
         position: 'relative',
       }}
     >
-      {renderPreview()}
-      {renderPlaceholder()}
+      {preview ? (
+  <Image
+    alt="Avatar"
+    src={preview}
+    sx={{ width: 1, height: 1, borderRadius: '50%' }}
+  />
+) : (
+  renderPlaceholder()
+)}
+
     </Box>
   );
 
