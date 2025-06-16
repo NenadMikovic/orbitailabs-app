@@ -5,8 +5,6 @@ import { CONFIG } from 'src/global-config';
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { SvgColor } from 'src/components/svg-color';
-import Divider from '@mui/material/Divider';
-import { Tooltip } from '@mui/material';
 
 
 
