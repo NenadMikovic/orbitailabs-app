@@ -1,7 +1,9 @@
+'use client';
+
 import { z as zod } from 'zod';
 import { useForm } from 'react-hook-form';
-import { useBoolean } from 'minimal-shared/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useBoolean } from 'minimal-shared/hooks';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -9,19 +11,15 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
+import { supabase } from 'src/lib/supabase';
 import { toast } from 'src/components/snackbar';
 import { Iconify } from 'src/components/iconify';
 import { Form, Field } from 'src/components/hook-form';
 
-// ----------------------------------------------------------------------
-
 export const ChangePassWordSchema = zod
   .object({
-    oldPassword: zod
-      .string()
-      .min(1, { message: 'Password is required!' })
-      .min(6, { message: 'Password must be at least 6 characters!' }),
-    newPassword: zod.string().min(1, { message: 'New password is required!' }),
+    oldPassword: zod.string().min(6, { message: 'Password must be at least 6 characters!' }),
+    newPassword: zod.string().min(6, { message: 'New password is required!' }),
     confirmNewPassword: zod.string().min(1, { message: 'Confirm password is required!' }),
   })
   .refine((data) => data.oldPassword !== data.newPassword, {
@@ -33,9 +31,7 @@ export const ChangePassWordSchema = zod
     path: ['confirmNewPassword'],
   });
 
-// ----------------------------------------------------------------------
-
-export function AccountChangePassword() {
+export function AccountChangePassword({ email }) {
   const showPassword = useBoolean();
 
   const defaultValues = {
@@ -56,27 +52,38 @@ export function AccountChangePassword() {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit(async ({ oldPassword, newPassword }) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password: oldPassword,
+      });
+
+      if (signInError) {
+        toast.error('Old password is incorrect!');
+        return;
+      }
+
+      const { error: updateError } = await supabase.auth.updateUser({
+        password: newPassword,
+      });
+
+      if (updateError) {
+        toast.error('Failed to update password!');
+        return;
+      }
+
       reset();
-      toast.success('Update success!');
-      console.info('DATA', data);
+      toast.success('Password updated successfully!');
     } catch (error) {
       console.error(error);
+      toast.error('Unexpected error occurred!');
     }
   });
 
   return (
     <Form methods={methods} onSubmit={onSubmit}>
-      <Card
-        sx={{
-          p: 3,
-          gap: 3,
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
+      <Card sx={{ p: 3, gap: 3, display: 'flex', flexDirection: 'column' }}>
         <Field.Text
           name="oldPassword"
           type={showPassword.value ? 'text' : 'password'}
@@ -86,9 +93,7 @@ export function AccountChangePassword() {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton onClick={showPassword.onToggle} edge="end">
-                    <Iconify
-                      icon={showPassword.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'}
-                    />
+                    <Iconify icon={showPassword.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
                   </IconButton>
                 </InputAdornment>
               ),
@@ -105,9 +110,7 @@ export function AccountChangePassword() {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton onClick={showPassword.onToggle} edge="end">
-                    <Iconify
-                      icon={showPassword.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'}
-                    />
+                    <Iconify icon={showPassword.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
                   </IconButton>
                 </InputAdornment>
               ),
@@ -129,9 +132,7 @@ export function AccountChangePassword() {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton onClick={showPassword.onToggle} edge="end">
-                    <Iconify
-                      icon={showPassword.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'}
-                    />
+                    <Iconify icon={showPassword.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
                   </IconButton>
                 </InputAdornment>
               ),

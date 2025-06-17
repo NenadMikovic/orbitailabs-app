@@ -23,7 +23,7 @@ export function KanbanDetailsCommentInput() {
         display: 'flex',
       }}
     >
-      <Avatar src={user?.photoURL} alt={user?.displayName}>
+      <Avatar src={user?.photo_url} alt={user?.displayName}>
         {user?.displayName?.charAt(0).toUpperCase()}
       </Avatar>
 

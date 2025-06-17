@@ -26,7 +26,7 @@ export function NavUpgrade({ sx, ...other }) {
     >
       <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
         <Box sx={{ position: 'relative' }}>
-          <Avatar src={user?.photoURL} alt={user?.displayName} sx={{ width: 48, height: 48 }}>
+          <Avatar src={user?.photo_url} alt={user?.displayName} sx={{ width: 48, height: 48 }}>
             {user?.displayName?.charAt(0).toUpperCase()}
           </Avatar>
 

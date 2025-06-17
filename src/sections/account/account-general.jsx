@@ -55,7 +55,42 @@ export const UpdateUserSchema = zod.object({
 export function AccountGeneral() {
   const { user } = useAuthContext();
 
+
   
+  const handleDeleteAccount = async () => {
+  try {
+    if (!user?.id) return;
+const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+console.log('SESSION:', sessionData);
+console.log('AUTH ERROR:', sessionError);
+console.log('CURRENT USER ID:', sessionData?.session?.user.id);
+
+    // Delete from your own 'profiles' table
+    const { error: profileError } = await supabase
+  .from('profiles')
+  .delete({ returning: 'minimal' })
+  .eq('id', sessionData?.session?.user.id)
+
+
+
+    if (profileError) {
+      toast.error('Failed to delete profile.');
+      return;
+    }
+
+    // Log out the user
+    await supabase.auth.signOut();
+
+    toast.success('Account removed from OrbitAI Labs. Contact support to permanently erase your account.');
+    // Optional redirect
+    // router.push('/');
+  } catch (err) {
+    console.error(err);
+    toast.error('Unexpected error occurred.');
+  }
+};
+
+
 
   const defaultValues = {
     displayName: '',
@@ -122,7 +157,7 @@ useEffect(() => {
   try {
     console.log('Submitting for user ID:', user?.id);
 
-// 🔥 Fetch current profile to get old photo_url
+// Fetch current profile to get old photo_url
 const { data: existingProfile, error: existingError } = await supabase
   .from('profiles')
   .select('photo_url')
@@ -142,7 +177,7 @@ if (file && typeof file === 'object' && file.type?.startsWith('image/')) {
   const fileName = `avatar.${fileExt}`;
   const filePath = `${user.id}/${fileName}`;
 
-  // ✅ Delete old file first (ignore errors if not found)
+  // Delete old file first (ignore errors if not found)
   const { error: deleteError } = await supabase.storage
     .from('avatars')
     .remove([filePath]);
@@ -151,7 +186,7 @@ if (file && typeof file === 'object' && file.type?.startsWith('image/')) {
     console.warn('Old avatar delete failed (may not exist):', deleteError.message);
   }
 
-  // ✅ Upload new file (without upsert to confirm deletion)
+  // Upload new file (without upsert to confirm deletion)
   const { error: uploadError } = await supabase.storage
     .from('avatars')
     .upload(filePath, file, { upsert: false });
@@ -162,7 +197,7 @@ if (file && typeof file === 'object' && file.type?.startsWith('image/')) {
     return;
   }
 
-  // ✅ Get public URL of new file + bust CDN cache
+  // Get public URL of new file + bust CDN cache
 const { data: publicUrlData } = supabase.storage
   .from('avatars')
   .getPublicUrl(filePath);
@@ -250,9 +285,10 @@ photo_url = publicUrlData?.publicUrl
               sx={{ mt: 5 }}
             />
 */}
-            <Button variant="soft" color="error" sx={{ mt: 3 }}>
-              Delete Account
-            </Button>
+            <Button variant="soft" color="error" sx={{ mt: 3 }} onClick={handleDeleteAccount}>
+  Delete Account
+</Button>
+
           </Card>
         </Grid>
 

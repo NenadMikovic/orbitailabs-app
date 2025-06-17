@@ -54,7 +54,7 @@ export function ProfilePostItem({ post }) {
     <CardHeader
       disableTypography
       avatar={
-        <Avatar src={user?.photoURL} alt={user?.displayName}>
+        <Avatar src={user?.photo_url} alt={user?.displayName}>
           {user?.displayName?.charAt(0).toUpperCase()}
         </Avatar>
       }
@@ -117,7 +117,7 @@ export function ProfilePostItem({ post }) {
         }),
       ]}
     >
-      <Avatar src={user?.photoURL} alt={user?.displayName}>
+      <Avatar src={user?.photo_url} alt={user?.displayName}>
         {user?.displayName?.charAt(0).toUpperCase()}
       </Avatar>
 
