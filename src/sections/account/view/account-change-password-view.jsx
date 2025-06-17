@@ -1,7 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect,  } from 'react';
+
 import { supabase } from 'src/lib/supabase';
+
 import { AccountChangePassword } from '../account-change-password';
 
 export function AccountChangePasswordView() {
