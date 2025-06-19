@@ -32,11 +32,14 @@ import { MainSection, layoutClasses, HeaderSection, LayoutSection } from '../cor
 // ----------------------------------------------------------------------
 
 export function DashboardLayout({ sx, cssVars, children, slotProps, layoutQuery = 'lg' }) {
+  
   const theme = useTheme();
 
   const { user } = useAuthContext();
 
   const settings = useSettingsContext();
+
+
 
   const navVars = dashboardNavColorVars(theme, settings.state.navColor, settings.state.navLayout);
 
@@ -52,6 +55,8 @@ export function DashboardLayout({ sx, cssVars, children, slotProps, layoutQuery 
 
   const renderHeader = () => {
     const headerSlotProps = {
+      
+
       container: {
         maxWidth: false,
         sx: {

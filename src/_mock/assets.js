@@ -359,7 +359,7 @@ export const _postTitles = [
 // ----------------------------------------------------------------------
 
 export const _productNames = [
-  `Urban Explorer Sneakers`,
+  `AI Assistant (placeholder)`,
   `Classic Leather Loafers`,
   `Mountain Trekking Boots`,
   `Elegance Stiletto Heels`,

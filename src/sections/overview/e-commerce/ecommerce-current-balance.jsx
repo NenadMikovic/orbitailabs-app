@@ -43,9 +43,7 @@ export function EcommerceCurrentBalance({
         {renderRow('Refunded', refunded)}
 
         <Box sx={{ gap: 2, display: 'flex' }}>
-          <Button fullWidth variant="contained" color="warning">
-            Request
-          </Button>
+          
 
           <Button fullWidth variant="contained" color="primary">
             Transfer

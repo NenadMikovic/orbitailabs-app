@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useBoolean } from 'minimal-shared/hooks';
 
 import Box from '@mui/material/Box';
@@ -14,6 +15,8 @@ import IconButton from '@mui/material/IconButton';
 import { paths } from 'src/routes/paths';
 import { usePathname } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
+
+import { supabase } from 'src/lib/supabase';
 
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
@@ -35,6 +38,27 @@ export function AccountDrawer({ data = [], sx, ...other }) {
 
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
 
+  const [profile, setProfile] = useState(null);
+
+useEffect(() => {
+  const fetchProfile = async () => {
+    if (!user?.id) return;
+
+    const { data: profileData, error } = await supabase
+      .from('profiles')
+      .select('display_name, photo_url')
+      .eq('id', user.id)
+      .single();
+
+    if (!error) {
+      setProfile(profileData);
+    }
+  };
+
+  fetchProfile();
+}, [user?.id]);
+
+
   const renderAvatar = () => (
     <AnimateBorder
       sx={{ mb: 2, p: '6px', width: 96, height: 96, borderRadius: '50%' }}
@@ -42,11 +66,12 @@ export function AccountDrawer({ data = [], sx, ...other }) {
         primaryBorder: { size: 120, sx: { color: 'primary.main' } },
       }}
     >
-      <Avatar src={user?.photo_url} alt={user?.displayName} sx={{ width: 1, height: 1 }}>
+      <Avatar src={profile?.photo_url} alt={user?.displayName} sx={{ width: 1, height: 1 }}>
         {user?.displayName?.charAt(0).toUpperCase()}
       </Avatar>
     </AnimateBorder>
   );
+console.log('User:', user);
 
   const renderList = () => (
     <MenuList
@@ -101,12 +126,13 @@ export function AccountDrawer({ data = [], sx, ...other }) {
       })}
     </MenuList>
   );
+console.log('Avatar URL:', profile?.photo_url);
 
   return (
     <>
       <AccountButton
         onClick={onOpen}
-        photoURL={user?.photoURL}
+        photoURL={profile?.photo_url}
         displayName={user?.displayName}
         sx={sx}
         {...other}

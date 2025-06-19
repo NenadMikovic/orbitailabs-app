@@ -161,7 +161,7 @@ export const _ecommerceLatestProducts = Array.from({ length: 5 }, (_, index) => 
   };
 });
 
-export const _ecommerceNewProducts = Array.from({ length: 4 }, (_, index) => ({
+export const _ecommerceNewProducts = Array.from({ length: 1 }, (_, index) => ({
   id: _mock.id(index),
   name: _mock.productName(index),
   coverUrl: _mock.image.product(index),

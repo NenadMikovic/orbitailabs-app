@@ -3,7 +3,6 @@ import Autoplay from 'embla-carousel-autoplay';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Link from '@mui/material/Link';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import { Image } from 'src/components/image';
@@ -63,9 +62,9 @@ function CarouselItem({ item, ...other }) {
           {item.name}
         </Link>
 
-        <Button color="primary" variant="contained" sx={{ alignSelf: 'flex-start' }}>
+        {/** <Button color="primary" variant="contained" sx={{ alignSelf: 'flex-start' }}>
           Buy now
-        </Button>
+        </Button> */}
       </Box>
 
       <Image

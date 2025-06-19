@@ -1,4 +1,5 @@
 import { m } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import { varAlpha } from 'minimal-shared/utils';
 
 import Box from '@mui/material/Box';
@@ -9,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import { paths } from 'src/routes/paths';
 
 import { CONFIG } from 'src/global-config';
+import { supabase } from 'src/lib/supabase';
 
 import { Label } from 'src/components/label';
 
@@ -17,7 +19,27 @@ import { useAuthContext } from 'src/auth/hooks';
 // ----------------------------------------------------------------------
 
 export function NavUpgrade({ sx, ...other }) {
+  const [profile, setProfile] = useState(null);
+
   const { user } = useAuthContext();
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (!user?.id) return;
+  
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('display_name, photo_url')
+        .eq('id', user.id)
+        .single();
+  
+      if (!error) {
+        setProfile(data);
+      }
+    };
+  
+    fetchProfile();
+  }, [user?.id]);
 
   return (
     <Box
@@ -26,7 +48,7 @@ export function NavUpgrade({ sx, ...other }) {
     >
       <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
         <Box sx={{ position: 'relative' }}>
-          <Avatar src={user?.photo_url} alt={user?.displayName} sx={{ width: 48, height: 48 }}>
+          <Avatar src={profile?.photo_url} alt={user?.displayName} sx={{ width: 48, height: 48 }}>
             {user?.displayName?.charAt(0).toUpperCase()}
           </Avatar>
 

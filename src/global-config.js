@@ -55,7 +55,7 @@ export const CONFIG = {
    * Supabase
    */
   supabase: {
-    url: process.env.NEXT_PUBLIC_SUPABASE_URL ?? '',
-    key: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? '',
+    url: process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'https://kedexunizeefxrkuawwe.supabase.co',
+    key: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtlZGV4dW5pemVlZnhya3Vhd3dlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzODM5NjksImV4cCI6MjA2Mzk1OTk2OX0.OZhzoxvOcaVvXYbNQQo9vdMq3pgqyWtzA5PXXnexTXc',
   },
 };
