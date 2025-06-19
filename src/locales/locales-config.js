@@ -44,7 +44,7 @@ export const allLangs = [
     label: 'English',
     countryCode: 'GB',
     adapterLocale: 'en',
-    numberFormat: { code: 'en-US', currency: 'USD' },
+    numberFormat: { code: 'en-GB', currency: 'EUR' },
     systemValue: {
       components: { ...enUSDate.components, ...enUSDataGrid.components },
     },

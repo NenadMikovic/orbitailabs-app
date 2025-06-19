@@ -40,31 +40,41 @@ export default function LicenseActiveView({ license }) {
         </Grid>
         <Grid size={{ xs: 12, md: 6, lg: 4 }}>
           <EcommerceCurrentBalance
-            title="Current balance"
-            earning={25500}
-            refunded={1600}
-            orderTotal={287650}
-            currentBalance={187650}
+            title="Starter"
+            earning="✔️ Included"
+            refunded="⚡30 (per day)"
+            orderTotal="✔️ Included"
+            currentBalance={99}
           />
         </Grid>
         <Grid size={{ xs: 12, md: 6, lg: 4 }}>
           <EcommerceCurrentBalance
-            title="Current balance"
-            earning={25500}
-            refunded={1600}
-            orderTotal={287650}
-            currentBalance={187650}
+            title="Pro"
+            earning="✔️ Included"
+            refunded='⚡50 (per day)'
+            orderTotal="✔️ Included"
+            currentBalance={149}
           />
         </Grid>
-        <Grid size={{ xs: 12, md: 6, lg: 4 }}>
-          <EcommerceCurrentBalance
-            title="Current balance"
-            earning={25500}
-            refunded={1600}
-            orderTotal={287650}
-            currentBalance={187650}
-          />
-        </Grid>
+        <Grid
+  size={{ xs: 12, md: 6, lg: 4 }}
+  sx={{
+    borderRadius: 2,
+    boxShadow:
+      '0 0 0 2px rgba(180, 80, 255, 0.4), 0 0 16px rgba(180, 80, 255, 0.6)',
+    transition: 'box-shadow 0.3s ease-in-out',
+  }}
+>
+  <EcommerceCurrentBalance
+    title="Elite"
+    earning="✔️ Included"
+    refunded="⚡Unlimited"
+    orderTotal="✔️ Included"
+    currentBalance={199}
+  />
+</Grid>
+
+        
        
 <Grid item xs={12} md={4}>
   <Card >
