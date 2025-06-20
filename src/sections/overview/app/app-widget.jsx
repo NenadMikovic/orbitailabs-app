@@ -1,8 +1,6 @@
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 
-import { fNumber } from 'src/utils/format-number';
-
 import { CONFIG } from 'src/global-config';
 
 import { Iconify } from 'src/components/iconify';
@@ -89,7 +87,7 @@ export function AppWidget({ title, total, icon, chart, sx, ...other }) {
       </Box>
 
       <div>
-        <Box sx={{ typography: 'h4' }}>{fNumber(total)}</Box>
+        <Box sx={{ typography: 'h4' }}><Box component="span">{total}</Box></Box>
         <Box sx={{ typography: 'subtitle2', opacity: 0.64 }}>{title}</Box>
       </div>
 

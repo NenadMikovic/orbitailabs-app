@@ -37,6 +37,10 @@ export function EcommerceCurrentBalance({
 <Box component="span" sx={{ color: 'text.secondary' }}>
   {title === 'Starter'
     ? 'Essential Tools Unlocked'
+    : title === 'Free'
+    ? 'Includes core tools. Upgrade for full power.'
+    : title === 'Advanced Market Tools & AI Assistant'
+    ? 'Smarter tools. Faster decisions. AI at your side.'
     : title === 'Pro'
     ? 'Enhanced Power and Precision'
     : 'All Features. No Limits.'}

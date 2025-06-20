@@ -1,9 +1,8 @@
 
+import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import Button from '@mui/material/Button';
+import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import CardContent from '@mui/material/CardContent';
 
 import {
   _ecommerceNewProducts,
@@ -12,13 +11,15 @@ import { DashboardContent } from 'src/layouts/dashboard';
 import { MotivationIllustration } from 'src/assets/illustrations';
 
 import { Iconify } from 'src/components/iconify';
+import { svgColorClasses } from 'src/components/svg-color';
 
+import { AppWidget } from 'src/sections/overview/app/app-widget';
 import { EcommerceWelcome } from 'src/sections/overview/e-commerce/ecommerce-welcome';
 import { EcommerceNewProducts } from 'src/sections/overview/e-commerce/ecommerce-new-products';
 import { EcommerceCurrentBalance } from 'src/sections/overview/e-commerce/ecommerce-current-balance';
 
 export default function LicenseActiveView({ license }) {
-    
+    const theme = useTheme();
   return (
     
     <DashboardContent maxWidth="xl">
@@ -38,6 +39,43 @@ export default function LicenseActiveView({ license }) {
 <Grid size={{ xs: 12, md: 4 }}>
           <EcommerceNewProducts list={_ecommerceNewProducts} />
         </Grid>
+
+<Grid size={{ xs: 12, md: 6, lg: 6 }}>
+          
+            <AppWidget
+              title="Your Plan"
+              total={license.plan}
+              icon="eos-icons:subscriptions-created"
+              chart={{ series: 48 }}
+            />
+</Grid>
+<Grid size={{ xs: 12, md: 6, lg: 6 }}>
+            <AppWidget
+              title="License Code"
+              total={license.license_code}
+              icon="solar:key-linear"
+              chart={{
+                series: 75,
+                colors: [theme.vars.palette.info.light, theme.vars.palette.info.main],
+              }}
+              sx={{
+                bgcolor: 'info.dark',
+                [`& .${svgColorClasses.root}`]: { color: 'info.light' },
+              }}
+            />
+         
+        
+</Grid>
+        <Grid size={12}>
+            <Box sx={{ mb: 2 }}>
+            <Typography variant="h4" sx={{ mb: 1 }}>
+              Upgrade Your Plan
+            </Typography>
+            <Typography
+              sx={{ color: 'text.secondary' }}
+            >Enhance your Stellaris Bot with advanced features and strategic advantages.</Typography>
+          </Box>
+</Grid>
         <Grid size={{ xs: 12, md: 6, lg: 4 }}>
           <EcommerceCurrentBalance
             title="Starter"
@@ -74,43 +112,34 @@ export default function LicenseActiveView({ license }) {
   />
 </Grid>
 
-        
-       
-<Grid item xs={12} md={4}>
-  <Card >
-    <CardContent>
-      <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-        Your Plan
-      </Typography>
-      <Typography variant="h6" gutterBottom>
-        {license.plan}
-      </Typography>
-
-      <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-        License Code
-      </Typography>
-      <Typography variant="body1" gutterBottom>
-        {license.license_code}
-      </Typography>
-
-      {license.expires_at && (
-        <>
-          <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-            Expires
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            {new Date(license.expires_at).toLocaleDateString()}
-          </Typography>
-        </>
-      )}
-
-      <Button variant="contained" color="primary" sx={{ mt: 2 }}>
-        Upgrade Plan
-      </Button>
-    </CardContent>
-  </Card>
-</Grid>
-
+  <Grid size={12}>
+            <Box sx={{ mb: 2 }}>
+            <Typography variant="h4" sx={{ mb: 1 }}>
+              Start Simple. Grow Smart.
+            </Typography>
+            <Typography
+              sx={{ color: 'text.secondary' }}
+            >Start free, upgrade anytime for advanced features and full automation.</Typography>
+          </Box>      
+       </Grid>
+       <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+          <EcommerceCurrentBalance
+            title="Free"
+            earning="🔒 Locked"
+            refunded='⚡0 (per day)'
+            orderTotal="🔒 Locked"
+            currentBalance={0}
+          />
+        </Grid>
+        <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+          <EcommerceCurrentBalance
+            title="Advanced Market Tools & AI Assistant"
+            earning="✔️ Included"
+            refunded='⚡20 (per day)'
+            orderTotal="✔️ Included"
+            currentBalance={49}
+          />
+        </Grid>
     </Grid>
 </DashboardContent>
 
