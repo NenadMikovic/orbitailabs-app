@@ -1,5 +1,11 @@
+import { useRef, useState } from 'react';
+
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import { IconButton } from '@mui/material';
+import Popover from '@mui/material/Popover';
 import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 import { CONFIG } from 'src/global-config';
 
@@ -9,12 +15,36 @@ import { Chart, useChart } from 'src/components/chart';
 
 // ----------------------------------------------------------------------
 
-export function AppWidget({ title, total, icon, chart, sx, ...other }) {
+export function AppWidget({ title, total, icon,  chart, centerIcon, sx, ...other }) {
   const theme = useTheme();
+
+const [anchorEl, setAnchorEl] = useState(null);
+const timerRef = useRef(null);
+
+const handleCopy = (event) => {
+  navigator.clipboard.writeText(total);
+  setAnchorEl(event.currentTarget);
+
+  clearTimeout(timerRef.current);
+  timerRef.current = setTimeout(() => {
+    setAnchorEl(null);
+  }, 1500);
+};
+
+const handleClosePopover = () => {
+  setAnchorEl(null);
+  clearTimeout(timerRef.current);
+};
+
+const open = Boolean(anchorEl);
+
+
+console.log('Total:', total, 'Parsed:', Date.parse(total));
 
   const chartColors = chart.colors ?? [theme.palette.primary.light, theme.palette.primary.main];
 
   const chartOptions = useChart({
+    
     chart: { sparkline: { enabled: true } },
     stroke: { width: 0 },
     fill: {
@@ -34,10 +64,12 @@ export function AppWidget({ title, total, icon, chart, sx, ...other }) {
             offsetY: 6,
             color: theme.vars.palette.common.white,
             fontSize: theme.typography.subtitle2.fontSize,
+            show: false,
           },
         },
       },
     },
+    
     ...chart.options,
   });
 
@@ -84,10 +116,79 @@ export function AppWidget({ title, total, icon, chart, sx, ...other }) {
             color: 'primary.light',
           }}
         />
+
+        <Box
+  sx={{
+    position: 'absolute',
+    zIndex: 2,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 40,
+    height: 40,
+  }}
+>
+  <Iconify icon={centerIcon} width={28} sx={{ color: 'common.white' }} />
+</Box>
       </Box>
+      
 
       <div>
-        <Box sx={{ typography: 'h4' }}><Box component="span">{total}</Box></Box>
+     <Box sx={{ typography: 'h4' }}>
+  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+    <Box component="span">
+      {!total
+        ? 'Indefinite'
+        : typeof total === 'string' && !isNaN(Date.parse(total)) && total.includes('T')
+        ? new Date(total).toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+          })
+        : total}
+    </Box>
+
+
+    {(typeof total === 'string' && total.includes('T')) || !total ? (
+  <Button
+    size="small"
+    variant="outlined"
+    onClick={() => console.log('Open expiration modify dialog')}
+  >
+    Modify
+  </Button>
+) : (
+  total &&
+  total.length > 10 && (
+    <>
+      <IconButton
+        size="small"
+        onClick={handleCopy}
+        title="Copy to clipboard"
+      >
+        <Iconify icon="solar:copy-bold" width={18} />
+      </IconButton>
+
+      <Popover
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClosePopover}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        disableRestoreFocus
+      >
+        <Typography sx={{ px: 2, py: 1 }}>Copied!</Typography>
+      </Popover>
+    </>
+  )
+)}
+
+  </Box>
+</Box>
+
+
+
+
         <Box sx={{ typography: 'subtitle2', opacity: 0.64 }}>{title}</Box>
       </div>
 

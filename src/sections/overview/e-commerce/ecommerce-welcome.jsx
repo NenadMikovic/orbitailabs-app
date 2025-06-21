@@ -45,11 +45,11 @@ export function EcommerceWelcome({ title, description, action, img, sx, ...other
           alignItems: { xs: 'center', md: 'flex-start' },
         }}
       >
-        <Typography variant="h4" sx={{ whiteSpace: 'pre-line', mb: 1 }}>
+        <Typography variant="h3" sx={{ whiteSpace: 'pre-line', mb: 1 }}>
           {title}
         </Typography>
 
-        <Typography variant="body2" sx={{ opacity: 0.64, maxWidth: 360, ...(action && { mb: 3 }) }}>
+        <Typography variant="body1" sx={{ opacity: 0.64, maxWidth: 520, ...(action && { mb: 3 }) }}>
           {description}
         </Typography>
 
