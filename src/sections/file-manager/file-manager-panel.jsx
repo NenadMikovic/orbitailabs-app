@@ -51,9 +51,10 @@ export function FileManagerPanel({
               bgcolor: 'primary.main',
               color: 'primary.contrastText',
               '&:hover': { bgcolor: 'primary.dark' },
+              pointerEvents: 'none',
             }}
           >
-            <Iconify width={16} icon="mingcute:add-line" />
+            <Iconify width={16} icon="material-symbols:download" />
           </IconButton>
         </Box>
 
@@ -70,7 +71,7 @@ export function FileManagerPanel({
           color="inherit"
           endIcon={<Iconify icon="eva:arrow-ios-forward-fill" width={18} sx={{ ml: -0.5 }} />}
         >
-          View all
+          View Guides
         </Button>
       )}
 

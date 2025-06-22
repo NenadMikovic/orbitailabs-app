@@ -9,10 +9,10 @@ import { DashboardContent } from 'src/layouts/dashboard';
 import { Iconify } from 'src/components/iconify';
 import OpenAIBox from 'src/components/openai/OpenAIBox';
 import { svgColorClasses } from 'src/components/svg-color';
+import { LicensePlanCard } from 'src/components/licenses-grid/LicensePlanCard';
 
 import { AppWidget } from 'src/sections/overview/app/app-widget';
 import { EcommerceWelcome } from 'src/sections/overview/e-commerce/ecommerce-welcome';
-import { EcommerceCurrentBalance } from 'src/sections/overview/e-commerce/ecommerce-current-balance';
 
 export default function LicenseActiveView({ license }) {
     const theme = useTheme();
@@ -37,63 +37,88 @@ export default function LicenseActiveView({ license }) {
           <OpenAIBox />
         </Grid>
 
-<Grid size={{ xs: 12, md: 6, lg: 4 }}>
-          <Box sx={{ mb: 2, borderRadius: 2,
-    boxShadow:
-      '0 0 0 2px rgba(180, 80, 255, 0.4)',
-    transition: 'box-shadow 0.3s ease-in-out',
-  }}>
-            <AppWidget
-              title="Your Plan"
-              total={license.plan.charAt(0).toUpperCase() + license.plan.slice(1)}
-              icon="eos-icons:subscriptions-created"
-              centerIcon="tabler:packages"
-              chart={{ series: 100 }}
-              sx={{
-                bgcolor: '#1c1247',
-                [`& .${svgColorClasses.root}`]: { color: 'info.light' },
-              }}
-            />
-            </Box>
-</Grid>
-<Grid size={{ xs: 12, md: 6, lg: 4 }}>
-  <Box sx={{ mb: 2, borderRadius: 2,
-    boxShadow:
-      '0 0 0 2px rgba(180, 80, 255, 0.4)',
-    transition: 'box-shadow 0.3s ease-in-out', }}>
-            <AppWidget
-              title="License Code"
-              total={license.license_code}
-              icon="solar:key-linear"
-              centerIcon="carbon:license"
-              chart={{
-                series: 100,
-              }}
-               sx={{
-                bgcolor: '#1c1247',
-                [`& .${svgColorClasses.root}`]: { color: 'info.light' },
-              }}
-            />
-         </Box>
-</Grid>
-<Grid size={{ xs: 12, md: 6, lg: 4 }}>
-          <Box sx={{ mb: 2, borderRadius: 2,
-    boxShadow:
-      '0 0 0 2px rgba(180, 80, 255, 0.4)',
-    transition: 'box-shadow 0.3s ease-in-out', }}>
-            <AppWidget
-              title="Expiration Date"
-              total={license.expires_at}
-              icon="mdi:clock-outline"
-              centerIcon="mdi:timer-sand"
-              chart={{ series: 100 }}
-              sx={{
-                bgcolor: '#1c1247',
-                [`& .${svgColorClasses.root}`]: { color: 'info.light' },
-              }}
-            />
-            </Box>
-</Grid>
+{license.plan === 'free' ? (
+  <Grid item xs={12}>
+   <br /> <Typography variant="h4" component="h2" gutterBottom>
+      No Active License Detected
+    </Typography>
+    <Typography variant="h6" component="h2">
+      Activate a plan below to unlock Stellaris and the full dashboard experience.
+    </Typography><br />
+  </Grid>
+) : (
+  <>
+    <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+      <Box
+        sx={{
+          mb: 2,
+          borderRadius: 2,
+          boxShadow: '0 0 0 2px rgba(180, 80, 255, 0.4)',
+          transition: 'box-shadow 0.3s ease-in-out',
+        }}
+      >
+        <AppWidget
+          title="Your Plan"
+          total={license.plan.charAt(0).toUpperCase() + license.plan.slice(1)}
+          icon="eos-icons:subscriptions-created"
+          centerIcon="tabler:packages"
+          chart={{ series: 100 }}
+          sx={{
+            bgcolor: '#1c1247',
+            [`& .${svgColorClasses.root}`]: { color: 'info.light' },
+          }}
+        />
+      </Box>
+    </Grid>
+
+    <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+      <Box
+        sx={{
+          mb: 2,
+          borderRadius: 2,
+          boxShadow: '0 0 0 2px rgba(180, 80, 255, 0.4)',
+          transition: 'box-shadow 0.3s ease-in-out',
+        }}
+      >
+        <AppWidget
+          title="License Code"
+          total={license.license_code}
+          icon="solar:key-linear"
+          centerIcon="carbon:license"
+          chart={{ series: 100 }}
+          sx={{
+            bgcolor: '#1c1247',
+            [`& .${svgColorClasses.root}`]: { color: 'info.light' },
+          }}
+        />
+      </Box>
+    </Grid>
+
+    <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+      <Box
+        sx={{
+          mb: 2,
+          borderRadius: 2,
+          boxShadow: '0 0 0 2px rgba(180, 80, 255, 0.4)',
+          transition: 'box-shadow 0.3s ease-in-out',
+        }}
+      >
+        <AppWidget
+          title="Expiration Date"
+          total={license.expires_at}
+          icon="mdi:clock-outline"
+          centerIcon="mdi:timer-sand"
+          chart={{ series: 100 }}
+          sx={{
+            bgcolor: '#1c1247',
+            [`& .${svgColorClasses.root}`]: { color: 'info.light' },
+          }}
+        />
+      </Box>
+    </Grid>
+  </>
+)}
+
 <br />
         <Grid size={12}>
             <Box sx={{ mb: 2 }}>
@@ -106,24 +131,41 @@ export default function LicenseActiveView({ license }) {
           </Box>
 </Grid>
         <Grid size={{ xs: 12, md: 6, lg: 4 }}>
-          <EcommerceCurrentBalance
+          {/** <EcommerceCurrentBalance
             icon="/assets/icons/pricing/pricing-icon-01.svg"
             title="Starter"
             earning={{ icon: 'icomoon-free:checkmark', text: 'Included', color: '#7635dc' }}
-            refunded={{ icon: 'mdi:thunder', text: '20 (per day)', color: '#c16103'}}
+            refunded={{ icon: 'mdi:thunder', text: '30 (per day)', color: '#c16103'}}
             orderTotal={{ icon: 'icomoon-free:checkmark', text: 'Included', color: '#7635dc' }}
             currentBalance={99}
-          />
+          /> */}
+
+          <LicensePlanCard
+  plan="starter"
+  current={license.plan === 'starter'}
+  price={99}
+  caption="Essential Tools Unlocked"
+  features={['Starter Bot', 'Advanced Market Tools', 'AI Assistant', '30 Tokens per day']}
+/>
         </Grid>
         <Grid size={{ xs: 12, md: 6, lg: 4 }}>
-          <EcommerceCurrentBalance
+          {/**<EcommerceCurrentBalance
           icon="/assets/icons/pricing/pricing-icon-02.svg"
             title="Pro"
             earning={{ icon: 'icomoon-free:checkmark', text: 'Included', color: '#7635dc' }}
-            refunded={{ icon: 'mdi:thunder', text: '20 (per day)', color: '#c16103'}}
+            refunded={{ icon: 'mdi:thunder', text: '50 (per day)', color: '#c16103'}}
             orderTotal={{ icon: 'icomoon-free:checkmark', text: 'Included', color: '#7635dc' }}
             currentBalance={149}
-          />
+          />*/}
+
+          <LicensePlanCard
+  plan="pro"
+  current={license.plan === 'pro'}
+  price={149}
+  caption="Enhanced Power and Precison"
+  features={['Starter & Pro Bot', 'Advanced Market Tools', 'AI Assistant', '50 Tokens per day']}
+/>
+
         </Grid>
         <Grid
   size={{ xs: 12, md: 6, lg: 4 }}
@@ -134,14 +176,23 @@ export default function LicenseActiveView({ license }) {
     transition: 'box-shadow 0.3s ease-in-out',
   }}
 >
-  <EcommerceCurrentBalance
+ {/**  <EcommerceCurrentBalance
   icon="/assets/icons/pricing/pricing-icon-03.svg"
     title="Elite"
     earning={{ icon: 'icomoon-free:checkmark', text: 'Included', color: '#7635dc' }}
-    refunded={{ icon: 'mdi:thunder', text: '20 (per day)', color: '#c16103'}}
+    refunded={{ icon: 'mdi:thunder', text: 'Unlimited', color: '#c16103'}}
     orderTotal={{ icon: 'icomoon-free:checkmark', text: 'Included', color: '#7635dc' }}
     currentBalance={199}
-  />
+  />*/}
+
+  <LicensePlanCard
+  plan="elite"
+  current={license.plan === 'elite'}
+  price={199}
+  caption="All Features. No Limits."
+  features={['All Bots', 'Advanced Market Tools', 'AI Assistant', 'Unlimited Tokens']}
+  highlight
+/>
 </Grid>
 <br />
   <Grid size={12}>
@@ -155,22 +206,44 @@ export default function LicenseActiveView({ license }) {
           </Box>      
        </Grid>
        <Grid size={{ xs: 12, md: 6, lg: 4 }}>
-          <EcommerceCurrentBalance
+
+<LicensePlanCard
+  plan="free"
+  current={license.plan === 'free'}
+  price={0}
+  caption="Basic Access. Zero Cost."
+  features={['Market Tools', 'AI Assistant', '0 Tokens per day']}
+  onUpgrade={() => console.log('Upgrade to Dashboard AI')}
+/>
+
+
+         {/**  <EcommerceCurrentBalance
             title="Free"
             earning={{ icon: 'material-symbols:lock', text: 'Locked', color: '#c16103'}}
-            refunded={{ icon: 'mdi:thunder', text: '20 (per day)', color: '#c16103'}}
+            refunded={{ icon: 'mdi:thunder', text: '0 (per day)', color: '#c16103'}}
             orderTotal={{ icon: 'icomoon-free:checkmark', text: 'Included', color: '#7635dc' }}
             currentBalance={0}
-          />
+          />*/}
         </Grid>
         <Grid size={{ xs: 12, md: 6, lg: 4 }}>
-          <EcommerceCurrentBalance
+
+<LicensePlanCard
+  plan="dashboard"
+  current={license.plan === 'dashboard'}
+  price={49}
+  caption="AI-powered Insights"
+  features={['Advanced Market Tools', 'AI Assistant', '20 Tokens per day']}
+  onUpgrade={() => console.log('Upgrade to Dashboard AI')}
+/>
+
+
+         {/**   <EcommerceCurrentBalance
             title="Next-Gen AI Dashboard"
             earning={{ icon: 'icomoon-free:checkmark', text: 'Included', color: '#7635dc' }}
             refunded={{ icon: 'mdi:thunder', text: '20 (per day)', color: '#c16103'}}
             orderTotal={{ icon: 'icomoon-free:checkmark', text: 'Included', color: '#7635dc' }}
             currentBalance={49}
-          />
+          />*/}
         </Grid>
     </Grid>
 </DashboardContent>

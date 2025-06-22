@@ -13,7 +13,7 @@ import LicenseActiveView from './LicenseActiveView'; // UI for active license
 
 // ----------------------------------------------------------------------
 
-export function OverviewManageLicensesView() {
+export function OverviewDownloadsView() {
   const { user } = useAuthContext();
   const [license, setLicense] = useState(null);
   const [loading, setLoading] = useState(true);

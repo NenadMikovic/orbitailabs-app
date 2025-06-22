@@ -10,12 +10,12 @@ export const _account = [
   },
   {
     label: 'Manage Licenses',
-    href: '#',
+    href: '/dashboard/manage-licenses',
     icon: <Iconify icon="solar:key-linear" />,
   },
   {
     label: 'Downloads',
-    href: '#',
+    href: '/dashboard/downloads',
     icon: <Iconify icon="bi:box" />,
   },
   {

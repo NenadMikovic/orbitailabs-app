@@ -26,7 +26,16 @@ export function FileThumbnail({
 
   const { name, path } = fileData(file);
 
-  const previewUrl = typeof file === 'string' ? file : URL.createObjectURL(file);
+  let previewUrl = '';
+
+if (typeof file === 'string') {
+  previewUrl = file;
+} else if (file instanceof File) {
+  previewUrl = URL.createObjectURL(file);
+} else if (typeof file === 'object') {
+  previewUrl = file.preview || file.url || '';
+}
+
 
   const format = fileFormat(path ?? previewUrl);
 
@@ -35,7 +44,12 @@ export function FileThumbnail({
       {format === 'image' && imageView ? (
         <ItemImg src={previewUrl} className={fileThumbnailClasses.img} {...slotProps?.img} />
       ) : (
-        <ItemIcon src={fileThumb(format)} className={fileThumbnailClasses.icon} {...icon} />
+        <ItemIcon
+  src={typeof file === 'object' && file.preview ? file.preview : fileThumb(format)}
+  className={fileThumbnailClasses.icon}
+  {...icon}
+/>
+
       )}
 
       {onRemove && (

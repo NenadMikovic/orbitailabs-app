@@ -158,7 +158,7 @@ const isLight = theme.palette.mode === 'light';
           
 
            <Button fullWidth variant="contained" color="primary">
-            Change Plan
+            Activate Plan
           </Button>
         </Box>
       </Box>

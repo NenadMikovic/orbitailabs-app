@@ -73,7 +73,7 @@ export const navData = [
     items: [
       { title: 'Dashboard', path: paths.dashboard.root, icon: ICONS.dashboard },
       { title: 'Manage Licenses', path: paths.dashboard.general.managelicenses, icon: ICONS.licenses },
-      { title: 'Downloads', path: paths.dashboard.general.analytics, icon: ICONS.downloads },
+      { title: 'Downloads', path: paths.dashboard.general.downloads, icon: ICONS.downloads },
       /**{ title: 'Banking', path: paths.dashboard.general.banking, icon: ICONS.banking },
       { title: 'Booking', path: paths.dashboard.general.booking, icon: ICONS.booking },
       { title: 'File', path: paths.dashboard.general.file, icon: ICONS.file },

@@ -67,14 +67,15 @@ export function FileManagerFileDetails({
         color="warning"
         icon={<Iconify icon="eva:star-outline" />}
         checkedIcon={<Iconify icon="eva:star-fill" />}
-        checked={favorited}
-        onChange={onFavorite}
+        checked
+    onChange={() => {}}
         slotProps={{
           input: {
             id: `favorite-details-${file.id}-checkbox`,
             'aria-label': `Favorite details ${file.id} checkbox`,
           },
         }}
+        sx={{ pointerEvents: 'none' }}
       />
     </Box>
   );
@@ -123,7 +124,7 @@ export function FileManagerFileDetails({
             }}
           >
             <Box component="span" sx={{ width: 80, color: 'text.secondary', mr: 2 }}>
-              Modified
+              Updated
             </Box>
 
             {fDateTime(file?.modifiedAt)}
@@ -137,10 +138,10 @@ export function FileManagerFileDetails({
             }}
           >
             <Box component="span" sx={{ width: 80, color: 'text.secondary', mr: 2 }}>
-              Type
+              Version
             </Box>
 
-            {fileFormat(file?.type)}
+            {file?.version ?? fileFormat(file?.type)}
           </Box>
         </>
       )}
@@ -226,6 +227,21 @@ export function FileManagerFileDetails({
     </>
   );
 
+const mt4Links = {
+  starter: '/downloads/starter-mt4.zip',
+  pro: '/downloads/pro-mt4.zip',
+  elite: '/downloads/elite-mt4.zip',
+};
+
+const mt5Links = {
+  starter: '/downloads/starter-mt5.zip',
+  pro: '/downloads/pro-mt5.zip',
+  elite: '/downloads/elite-mt5.zip',
+};
+
+const plan = file?.requiredPlan?.toLowerCase?.();
+
+
   return (
     <>
       <Drawer
@@ -252,7 +268,7 @@ export function FileManagerFileDetails({
           >
             <FileThumbnail
               imageView
-              file={file?.type === 'folder' ? file?.type : file?.url}
+              file={file}
               sx={{ width: 'auto', height: 'auto', alignSelf: 'flex-start' }}
               slotProps={{
                 img: {
@@ -273,24 +289,44 @@ export function FileManagerFileDetails({
 
             <Divider sx={{ borderStyle: 'dashed' }} />
 
-            {renderTags()}
+           {/**  {renderTags()} */}
             {renderProperties()}
           </Stack>
 
-          {renderShared()}
+          {/** {renderShared()} */}
         </Scrollbar>
 
         <Box sx={{ p: 2.5 }}>
-          <Button
-            fullWidth
-            variant="soft"
-            color="error"
-            size="large"
-            startIcon={<Iconify icon="solar:trash-bin-trash-bold" />}
-            onClick={onDelete}
-          >
-            Delete
-          </Button>
+         <Box sx={{ p: 2.5, display: 'flex', flexDirection: 'column', gap: 2 }}>
+  <Button
+    fullWidth
+    variant="contained"
+    color="primary"
+    size="large"
+    startIcon={<Iconify icon="material-symbols:download" />}
+    href={mt4Links[plan]}
+    target="_blank"
+    rel="noopener noreferrer"
+    disabled={!mt4Links[plan]}
+  >
+    Download MT4
+  </Button>
+
+  <Button
+    fullWidth
+    variant="contained"
+    color="secondary"
+    size="large"
+    startIcon={<Iconify icon="material-symbols:download" />}
+    href={mt5Links[plan]}
+    target="_blank"
+    rel="noopener noreferrer"
+    disabled={!mt5Links[plan]}
+  >
+    Download MT5
+  </Button>
+</Box>
+
         </Box>
       </Drawer>
 

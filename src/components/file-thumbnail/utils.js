@@ -20,49 +20,23 @@ const iconUrl = (icon) => `${CONFIG.assetsDir}/assets/icons/files/${icon}.svg`;
 // ----------------------------------------------------------------------
 
 export function fileFormat(fileUrl) {
-  let format;
 
   const fileByUrl = fileTypeByUrl(fileUrl);
 
-  switch (fileUrl.includes(fileByUrl)) {
-    case FORMAT_TEXT.includes(fileByUrl):
-      format = 'txt';
-      break;
-    case FORMAT_ZIP.includes(fileByUrl):
-      format = 'zip';
-      break;
-    case FORMAT_AUDIO.includes(fileByUrl):
-      format = 'audio';
-      break;
-    case FORMAT_IMG.includes(fileByUrl):
-      format = 'image';
-      break;
-    case FORMAT_VIDEO.includes(fileByUrl):
-      format = 'video';
-      break;
-    case FORMAT_WORD.includes(fileByUrl):
-      format = 'word';
-      break;
-    case FORMAT_EXCEL.includes(fileByUrl):
-      format = 'excel';
-      break;
-    case FORMAT_POWERPOINT.includes(fileByUrl):
-      format = 'powerpoint';
-      break;
-    case FORMAT_PDF.includes(fileByUrl):
-      format = 'pdf';
-      break;
-    case FORMAT_PHOTOSHOP.includes(fileByUrl):
-      format = 'photoshop';
-      break;
-    case FORMAT_ILLUSTRATOR.includes(fileByUrl):
-      format = 'illustrator';
-      break;
-    default:
-      format = fileTypeByUrl(fileUrl);
-  }
+  if (FORMAT_TEXT.includes(fileByUrl)) return 'txt';
+if (FORMAT_ZIP.includes(fileByUrl)) return 'zip';
+if (FORMAT_AUDIO.includes(fileByUrl)) return 'audio';
+if (FORMAT_IMG.includes(fileByUrl)) return 'image';
+if (FORMAT_VIDEO.includes(fileByUrl)) return 'video';
+if (FORMAT_WORD.includes(fileByUrl)) return 'word';
+if (FORMAT_EXCEL.includes(fileByUrl)) return 'excel';
+if (FORMAT_POWERPOINT.includes(fileByUrl)) return 'powerpoint';
+if (FORMAT_PDF.includes(fileByUrl)) return 'pdf';
+if (FORMAT_PHOTOSHOP.includes(fileByUrl)) return 'photoshop';
+if (FORMAT_ILLUSTRATOR.includes(fileByUrl)) return 'illustrator';
 
-  return format;
+return fileByUrl;
+
 }
 
 // ----------------------------------------------------------------------
@@ -128,7 +102,7 @@ export function fileNameByUrl(fileUrl) {
 // ----------------------------------------------------------------------
 
 export function fileData(file) {
-  // From url
+  // If it's a string, treat as direct URL
   if (typeof file === 'string') {
     return {
       preview: file,
@@ -141,14 +115,28 @@ export function fileData(file) {
     };
   }
 
-  // From file
+  // If it's a File object
+  if (file instanceof File) {
+    return {
+      name: file.name,
+      size: file.size,
+      path: URL.createObjectURL(file),
+      type: file.type,
+      preview: URL.createObjectURL(file),
+      lastModified: file.lastModified,
+      lastModifiedDate: file.lastModifiedDate,
+    };
+  }
+
+  // If it's a custom mock object (like from _files)
   return {
-    name: file.name,
+    name: file.name ?? 'unknown',
     size: file.size,
-    path: file.path,
-    type: file.type,
-    preview: file.preview,
-    lastModified: file.lastModified,
-    lastModifiedDate: file.lastModifiedDate,
+    path: file.url ?? file.preview ?? '',
+    type: file.type ?? fileTypeByUrl(file.url ?? file.preview ?? ''),
+    preview: file.preview ?? file.url ?? '',
+    lastModified: file.modifiedAt,
+    lastModifiedDate: file.modifiedAt,
   };
 }
+

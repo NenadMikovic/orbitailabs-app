@@ -55,7 +55,7 @@ export const CONFIG = {
    * Supabase
    */
   supabase: {
-    url: process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'https://kedexunizeefxrkuawwe.supabase.co',
-    key: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtlZGV4dW5pemVlZnhya3Vhd3dlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzODM5NjksImV4cCI6MjA2Mzk1OTk2OX0.OZhzoxvOcaVvXYbNQQo9vdMq3pgqyWtzA5PXXnexTXc',
+    url: process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'https://ezsffbswjlbhuloprdrl.supabase.co',
+    key: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV6c2ZmYnN3amxiaHVsb3ByZHJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA2MTY2OTEsImV4cCI6MjA2NjE5MjY5MX0.UDE8EHCstq1hkeoqw1iZzPZZp1o_zkItMhcMxPA4k5c',
   },
 };

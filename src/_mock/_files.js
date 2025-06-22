@@ -1,5 +1,5 @@
 import { _mock } from './_mock';
-import { _tags, _fileNames } from './assets';
+import { _tags } from './assets';
 
 // ----------------------------------------------------------------------
 
@@ -80,17 +80,53 @@ export const _folders = FOLDERS.map((name, index) => ({
   isFavorited: _mock.boolean(index + 1),
 }));
 
-export const _files = _fileNames.map((name, index) => ({
-  id: `${_mock.id(index)}_file`,
-  name,
-  url: URLS[index],
-  shared: shared(index),
-  tags: _tags.slice(0, 5),
-  size: GB / ((index + 1) * 500),
-  createdAt: _mock.time(index),
-  modifiedAt: _mock.time(index),
-  type: `${name.split('.').pop()}`,
-  isFavorited: _mock.boolean(index + 1),
-}));
+export const _files = [
+  {
+    id: 'starter_file',
+    name: 'Stellaris_Starter_Bot.zip',
+    url: '/downloads/stellaris-starter.zip',
+    size: 3_200_000, // size in bytes
+    type: 'zip',
+    requiredPlan: 'starter',
+    version: '1.3',
+    preview: '/assets/icons/files/ic-word.svg',
+    createdAt: new Date('2025-06-20'),
+    modifiedAt: new Date('2025-06-21'),
+    shared: [],
+    tags: [],
+    isFavorited: false,
+  },
+  {
+    id: 'pro_file',
+    name: 'Stellaris_Pro_Bot.zip',
+    url: '/downloads/stellaris-pro.zip',
+    size: 4_500_000,
+    type: 'zip',
+    requiredPlan: 'pro',
+    version: '1.5',
+    preview: '/assets/icons/files/ic-folder-pink.svg',
+    createdAt: new Date('2025-06-20'),
+    modifiedAt: new Date('2025-06-22'),
+    shared: [],
+    tags: [],
+    isFavorited: false,
+  },
+  {
+    id: 'elite_file',
+    name: 'Stellaris_Elite_Bot.zip',
+    url: '/downloads/stellaris-elite.zip',
+    size: 6_000_000,
+    type: 'zip',
+    requiredPlan: 'elite',
+    version: '1.8',
+    preview: '/assets/icons/files/ic-folder-purple.svg',
+    createdAt: new Date('2025-06-20'),
+    modifiedAt: new Date('2025-06-23'),
+    shared: [],
+    tags: [],
+    isFavorited: false,
+  },
+];
+
 
 export const _allFiles = [..._folders, ..._files];
