@@ -1,5 +1,7 @@
 import 'src/global.css';
 
+import Script from 'next/script';
+
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 
@@ -23,6 +25,7 @@ import { AuthProvider as Auth0AuthProvider } from 'src/auth/context/auth0';
 import { AuthProvider as AmplifyAuthProvider } from 'src/auth/context/amplify';
 import { AuthProvider as SupabaseAuthProvider } from 'src/auth/context/supabase';
 import { AuthProvider as FirebaseAuthProvider } from 'src/auth/context/firebase';
+
 
 // ----------------------------------------------------------------------
 
@@ -79,6 +82,13 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang={appConfig.lang} dir={appConfig.dir} suppressHydrationWarning>
+      <head>
+        {/* Add Paddle Checkout script here */}
+        <Script
+          src="https://cdn.paddle.com/paddle/paddle.v2.js"
+          strategy="beforeInteractive"
+/>
+        </head>
       <body>
         <InitColorSchemeScript
           modeStorageKey={themeConfig.modeStorageKey}

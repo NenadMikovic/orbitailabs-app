@@ -1,6 +1,5 @@
 
 import { useState, useEffect } from 'react';
-import { initializePaddle } from '@paddle/paddle-js';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -26,32 +25,37 @@ export default function LicenseActiveView({ license }) {
 const [paddle, setPaddle] = useState(null);
 const { user } = useAuthContext();
 const email = license.user_email || user?.email;
+
 useEffect(() => {
-  const setupPaddle = async () => {
-    const paddleInstance = await initializePaddle({
-      token: 'test_6529b59390838e87cb61779840b', // replace with your actual sandbox client token
-      vendor: 32025, // replace with your actual vendor ID
-      environment: 'sandbox',
+  if (typeof window !== 'undefined' && window.Paddle) {
+    window.Paddle.Environment.set('sandbox'); // or remove this for production
+    window.Paddle.Initialize({
+      token: 'test_6529b59390838e87cb61779840b', // replace with your sandbox token
+      eventCallback: (e) => console.log('Paddle Event:', e),
     });
-
-    setPaddle(paddleInstance);
-  };
-
-  setupPaddle();
+  }
 }, []);
 
-const handleUpgrade = (plan, productId) => {
-  if (!paddle || !license?.user_id) return;
 
-  paddle.Checkout.open({
-    product: productId,
-    email,
-    passthrough: JSON.stringify({
-      user_id: license.user_id,
-      plan,
-    }),
+const handleUpgrade = (plan, priceId) => {
+  if (!window.Paddle || !email) {
+    alert('Checkout not ready');
+    return;
+  }
+
+  window.Paddle.Checkout.open({
+    items: [
+      {
+        priceId,
+        quantity: 1,
+      },
+    ],
+    customer: {
+      email,
+    },
   });
 };
+
 
   return (
     
@@ -182,7 +186,9 @@ const handleUpgrade = (plan, productId) => {
   price={99}
   caption="Essential Tools Unlocked"
   features={['Starter Bot', 'Advanced Market Tools', 'AI Assistant', '30 Tokens per day']}
-  onUpgrade={() => handleUpgrade('starter', 'pro_01jye74999v38j2m535xwmbtgr')}
+  onUpgrade={() =>
+    handleUpgrade('starter', 'pri_01jye7srkkykf2g5t5940d4ygz') // your actual Paddle price ID
+   } 
 />
         </Grid>
         <Grid size={{ xs: 12, md: 6, lg: 4 }}>
