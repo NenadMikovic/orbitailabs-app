@@ -81,7 +81,10 @@ export default async function RootLayout({ children }) {
   return (
     <html lang={appConfig.lang} dir={appConfig.dir} suppressHydrationWarning>
       <head>
-        <script src="https://cdn.paddle.com/paddle/v2/paddle.js" />
+        <script
+  src="https://cdn.paddle.com/paddle/v2/paddle.js"
+  async
+></script>
       </head>
       <body>
         <InitColorSchemeScript
