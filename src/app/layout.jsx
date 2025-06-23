@@ -83,8 +83,7 @@ export default async function RootLayout({ children }) {
       <head>
         <script
   src="https://cdn.paddle.com/paddle/v2/paddle.js"
-  async
-></script>
+  async />
       </head>
       <body>
         <InitColorSchemeScript

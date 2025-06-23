@@ -28,7 +28,7 @@ const email = license.user_email || user?.email;
 useEffect(() => {
   const initPaddle = () => {
     if (typeof window !== 'undefined' && window.Paddle) {
-      Paddle.Environment.set("sandbox");
+      window.Paddle.Environment.set("sandbox");
       window.Paddle.Initialize({
         token: 'test_6529b59390838e87cb61779840b',
       });
