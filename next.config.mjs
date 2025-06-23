@@ -19,6 +19,22 @@ const nextConfig = {
   env: {
     BUILD_STATIC_EXPORT: JSON.stringify(isStaticExport),
   },
+
+   // Content Security Policy fix for Paddle checkout
+async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: "frame-ancestors 'self' https://sandbox-buy.paddle.com",
+          },
+        ],
+      },
+    ];
+  },
+
   // Without --turbopack (next dev)
   webpack(config) {
     config.module.rules.push({
