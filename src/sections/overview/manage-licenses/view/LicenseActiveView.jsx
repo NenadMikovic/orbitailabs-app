@@ -1,4 +1,7 @@
 
+import { useState, useEffect } from 'react';
+import { initializePaddle } from '@paddle/paddle-js';
+
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { useTheme } from '@mui/material/styles';
@@ -14,9 +17,42 @@ import { LicensePlanCard } from 'src/components/licenses-grid/LicensePlanCard';
 import { AppWidget } from 'src/sections/overview/app/app-widget';
 import { EcommerceWelcome } from 'src/sections/overview/e-commerce/ecommerce-welcome';
 
+import { useAuthContext } from 'src/auth/hooks';
+
 export default function LicenseActiveView({ license }) {
     const theme = useTheme();
     const isLight = theme.palette.mode === 'light';
+
+const [paddle, setPaddle] = useState(null);
+const { user } = useAuthContext();
+const email = license.user_email || user?.email;
+useEffect(() => {
+  const setupPaddle = async () => {
+    const paddleInstance = await initializePaddle({
+      token: 'test_6529b59390838e87cb61779840b', // replace with your actual sandbox client token
+      vendor: 32025, // replace with your actual vendor ID
+      environment: 'sandbox',
+    });
+
+    setPaddle(paddleInstance);
+  };
+
+  setupPaddle();
+}, []);
+
+const handleUpgrade = (plan, productId) => {
+  if (!paddle || !license?.user_id) return;
+
+  paddle.Checkout.open({
+    product: productId,
+    email,
+    passthrough: JSON.stringify({
+      user_id: license.user_id,
+      plan,
+    }),
+  });
+};
+
   return (
     
     <DashboardContent maxWidth="xl">
@@ -146,6 +182,7 @@ export default function LicenseActiveView({ license }) {
   price={99}
   caption="Essential Tools Unlocked"
   features={['Starter Bot', 'Advanced Market Tools', 'AI Assistant', '30 Tokens per day']}
+  onUpgrade={() => handleUpgrade('starter', 'pro_01jye74999v38j2m535xwmbtgr')}
 />
         </Grid>
         <Grid size={{ xs: 12, md: 6, lg: 4 }}>
@@ -162,7 +199,7 @@ export default function LicenseActiveView({ license }) {
   plan="pro"
   current={license.plan === 'pro'}
   price={149}
-  caption="Enhanced Power and Precison"
+  caption="Enhanced Power and Precision"
   features={['Starter & Pro Bot', 'Advanced Market Tools', 'AI Assistant', '50 Tokens per day']}
 />
 
