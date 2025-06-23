@@ -1,7 +1,5 @@
 import 'src/global.css';
 
-import Script from 'next/script';
-
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 
@@ -83,12 +81,8 @@ export default async function RootLayout({ children }) {
   return (
     <html lang={appConfig.lang} dir={appConfig.dir} suppressHydrationWarning>
       <head>
-        {/* Add Paddle Checkout script here */}
-        <Script
-          src="https://cdn.paddle.com/paddle/paddle.v2.js"
-          strategy="beforeInteractive"
-/>
-        </head>
+        <script src="https://cdn.paddle.com/paddle/v2/paddle.js" />
+      </head>
       <body>
         <InitColorSchemeScript
           modeStorageKey={themeConfig.modeStorageKey}

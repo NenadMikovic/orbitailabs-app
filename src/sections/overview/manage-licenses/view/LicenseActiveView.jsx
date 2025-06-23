@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -22,28 +22,37 @@ export default function LicenseActiveView({ license }) {
     const theme = useTheme();
     const isLight = theme.palette.mode === 'light';
 
-const [paddle, setPaddle] = useState(null);
 const { user } = useAuthContext();
 const email = license.user_email || user?.email;
 
 useEffect(() => {
-  if (typeof window !== 'undefined' && window.Paddle) {
-    window.Paddle.Environment.set('sandbox'); // or remove this for production
-    window.Paddle.Initialize({
-      token: 'test_6529b59390838e87cb61779840b', // replace with your sandbox token
-      eventCallback: (e) => console.log('Paddle Event:', e),
-    });
-  }
+  const initPaddle = () => {
+    if (typeof window !== 'undefined' && window.Paddle) {
+      window.Paddle.Initialize({
+        token: 'test_6529b59390838e87cb61779840b',
+      });
+    } else {
+      console.warn('Paddle not loaded yet');
+    }
+  };
+
+  initPaddle();
 }, []);
 
 
 const handleUpgrade = (plan, priceId) => {
-  if (!window.Paddle || !email) {
+  if (!window.Paddle) {
     alert('Checkout not ready');
     return;
   }
 
   window.Paddle.Checkout.open({
+    settings: {
+      displayMode: 'overlay',
+      variant: 'one-page',
+      // Optional:
+      // successUrl: 'https://app.orbitailabs.com/thank-you',
+    },
     items: [
       {
         priceId,
@@ -55,6 +64,7 @@ const handleUpgrade = (plan, priceId) => {
     },
   });
 };
+
 
 
   return (
