@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
+import { supabase } from 'src/lib/supabase';
 import { DashboardContent } from 'src/layouts/dashboard';
 
 import { Iconify } from 'src/components/iconify';
@@ -25,13 +26,63 @@ export default function LicenseActiveView({ license }) {
 const { user } = useAuthContext();
 const email = license.user_email || user?.email;
 
+const extractPlanFromProductName = (productName) => {
+  if (!productName) return null;
+
+  if (productName.toLowerCase().includes('starter')) return 'starter';
+  if (productName.toLowerCase().includes('pro')) return 'pro';
+  if (productName.toLowerCase().includes('elite')) return 'elite';
+
+  return null;
+};
+
 useEffect(() => {
   const initPaddle = () => {
     if (typeof window !== 'undefined' && window.Paddle) {
       window.Paddle.Environment.set("sandbox");
       window.Paddle.Initialize({
-        token: 'test_6529b59390838e87cb61779840b',
-      });
+  token: 'test_6529b59390838e87cb61779840b',
+   eventCallback: async (event) => {
+  console.log('[Paddle Event Fired]', event);
+
+  if (event.name === 'checkout.completed') {
+  const productName = event.data?.items?.[0]?.product?.name;
+  const newPlan = extractPlanFromProductName(productName);
+
+  if (!newPlan) {
+    console.error('Missing plan name from Paddle data.');
+    return;
+  }
+
+  console.log('✔ Detected new plan:', newPlan);
+
+  const { data: userData } = await supabase.auth.getUser();
+  const userId = userData?.user?.id;
+
+
+  const randomLicense = `s-${Math.random().toString(36).substring(2, 12).toUpperCase()}`;
+
+  if (userId) {
+    const { error } = await supabase
+      .from('licenses')
+      .update({
+      plan: newPlan,
+      license_code: randomLicense,
+    })
+      .eq('user_id', userId);
+
+    if (error) {
+      console.error('❌ Error updating plan:', error.message);
+    } else {
+      console.log(`✅ License updated to ${newPlan}`);
+      window.location.reload();
+    }
+  }
+}
+
+},
+});
+
     } else {
       console.warn('Paddle not loaded yet');
     }
@@ -197,9 +248,7 @@ const handleUpgrade = (plan, priceId) => {
   price={99}
   caption="Essential Tools Unlocked"
   features={['Starter Bot', 'Advanced Market Tools', 'AI Assistant', '30 Tokens per day']}
-  onUpgrade={() =>
-    handleUpgrade('starter', 'pri_01jye7srkkykf2g5t5940d4ygz') // your actual Paddle price ID
-   } 
+ onUpgrade={(plan, priceId) => handleUpgrade(plan, priceId)}
 />
         </Grid>
         <Grid size={{ xs: 12, md: 6, lg: 4 }}>
