@@ -8,4 +8,4 @@ public/*
 
 yarn.lock
 package-lock.json
-tsconfig.json
+jsconfig.json
