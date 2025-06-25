@@ -21,7 +21,7 @@ export default function LicenseEmptyView() {
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, md: 8 }}>
            <EcommerceWelcome
-          title="Manage Licenses"
+          title="Licenses & Plans"
           description={
           <><br />
        <Iconify icon="ep:info-filled" width={20} sx={{ mr: 1, verticalAlign: 'middle' }} />

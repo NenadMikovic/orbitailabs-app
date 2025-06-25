@@ -49,9 +49,16 @@ export function EcommerceWelcome({ title, description, action, img, sx, ...other
           {title}
         </Typography>
 
-        <Typography variant="body1" sx={{ opacity: 0.64, maxWidth: 520, ...(action && { mb: 3 }) }}>
-          {description}
-        </Typography>
+        {typeof description === 'string' ? (
+  <Typography variant="body1" sx={{ opacity: 0.64, maxWidth: 600, ...(action && { mb: 3 }) }}>
+    {description}
+  </Typography>
+) : (
+  <Box sx={{ opacity: 0.64, maxWidth: 600, ...(action && { mb: 3 }) }}>
+    {description}
+  </Box>
+)}
+
 
         {action && action}
       </Box>

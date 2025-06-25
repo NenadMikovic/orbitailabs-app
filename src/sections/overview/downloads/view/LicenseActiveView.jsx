@@ -126,8 +126,12 @@ const [folderName, setFolderName] = useState('');
           title="Downloads"
           description={
           <><br />
-       <Iconify icon="ep:info-filled" width={20} sx={{ mr: 1, verticalAlign: 'middle' }} />
-        Download core tools, bot updates, and AI-powered extensions. Access everything you need to install, update, and enhance your Stellaris setup.
+        <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+              <Iconify icon="ep:info-filled" width={30} sx={{ mt: '3px' }} />
+              <Typography variant="body1">
+                Download core tools, bot updates, and AI-powered extensions. Access everything you need to install, update, and enhance your Stellaris setup.
+              </Typography>
+            </Box>
          </>
           }
             />

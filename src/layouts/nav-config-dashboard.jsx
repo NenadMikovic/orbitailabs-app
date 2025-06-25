@@ -72,7 +72,7 @@ export const navData = [
     subheader: 'Overview',
     items: [
       { title: 'Dashboard', path: paths.dashboard.root, icon: ICONS.dashboard },
-      { title: 'Manage Licenses', path: paths.dashboard.general.managelicenses, icon: ICONS.licenses },
+      { title: 'Licenses & Plans', path: paths.dashboard.general.managelicenses, icon: ICONS.licenses },
       { title: 'Downloads', path: paths.dashboard.general.downloads, icon: ICONS.downloads },
       /**{ title: 'Banking', path: paths.dashboard.general.banking, icon: ICONS.banking },
       { title: 'Booking', path: paths.dashboard.general.booking, icon: ICONS.booking },
@@ -116,7 +116,7 @@ export const navData = [
       },*/
       {
         title: 'Market Insider',
-        path: paths.dashboard.mail,
+        path: paths.dashboard.general.marketinsider,
         icon: ICONS.insider,
       },
       {

@@ -9,7 +9,7 @@ export const _account = [
     icon: <Iconify icon="material-symbols:space-dashboard-rounded" />,
   },
   {
-    label: 'Manage Licenses',
+    label: 'Licenses & Plans',
     href: '/dashboard/manage-licenses',
     icon: <Iconify icon="solar:key-linear" />,
   },

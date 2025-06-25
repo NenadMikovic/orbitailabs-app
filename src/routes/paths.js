@@ -103,6 +103,7 @@ export const paths = {
       ecommerce: `${ROOTS.DASHBOARD}/ecommerce`,
       managelicenses: `${ROOTS.DASHBOARD}/manage-licenses`,
       downloads: `${ROOTS.DASHBOARD}/downloads`,
+      marketinsider: `${ROOTS.DASHBOARD}/market-insider`,
       analytics: `${ROOTS.DASHBOARD}/analytics`,
       banking: `${ROOTS.DASHBOARD}/banking`,
       booking: `${ROOTS.DASHBOARD}/booking`,

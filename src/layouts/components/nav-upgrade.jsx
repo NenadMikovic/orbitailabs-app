@@ -161,7 +161,7 @@ export function UpgradeBlock({ sx, ...other }) {
         }}
       >
         <Box component="span" sx={{ typography: 'h5', color: 'common.white' }}>
-          AI Advantage
+          OrbitAI Assistant
         </Box>
 
         <Box
@@ -171,13 +171,17 @@ export function UpgradeBlock({ sx, ...other }) {
             mt: 0.5,
             color: 'common.white',
             typography: 'subtitle2',
+            maxWidth: {
+      xs: '320px',   // full width on mobile
+      sm: '550px',  // limit width on tablets and up
+    },
           }}
         >
-          Outlearn. Outtrade. <br /> Outperform.
+          Your daily tokens reset every 24 hours and are used first. <br />Bonus tokens are only used when you exceed your daily limit — they never expire.
         </Box>
 
         <Button variant="contained" size="small" color="warning">
-          Upgrade to Elite
+          Buy Tokens
         </Button>
       </Box>
     </Box>

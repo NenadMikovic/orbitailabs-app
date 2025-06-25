@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 
 import { supabase } from 'src/lib/supabase';
 import { DashboardContent } from 'src/layouts/dashboard';
+import { UpgradeBlock } from 'src/layouts/components/nav-upgrade';
 
 import { Iconify } from 'src/components/iconify';
 import { svgColorClasses } from 'src/components/svg-color';
@@ -125,11 +126,15 @@ const handleUpgrade = (plan, priceId) => {
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, md: 8 }}>
            <EcommerceWelcome
-          title="Manage Licenses"
+          title="Licenses & Plans"
           description={
           <><br />
-       <Iconify icon="ep:info-filled" width={20} sx={{ mr: 1, verticalAlign: 'middle' }} />
-        View your active plan, license keys, and included features. Easily upgrade to a higher tier or explore all available plans for more powerful tools and benefits.
+        <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+              <Iconify icon="ep:info-filled" width={30} sx={{ mt: '3px' }} />
+              <Typography variant="body1">
+                View your active plan, license key, and included features. Easily upgrade to a higher tier or explore all available plans for more powerful tools and benefits.
+              </Typography>
+            </Box>
          </>
           }
            // img={<MotivationIllustration hideBackground />}
@@ -140,17 +145,39 @@ const handleUpgrade = (plan, priceId) => {
         </Grid>
 
 {license.plan === 'free' ? (
-  <Grid item xs={12}>
-   <br /> <Typography variant="h4" component="h2" gutterBottom>
-      No Active License Detected
-    </Typography>
-    <Typography variant="h6" component="h2">
-      Activate a plan below to unlock Stellaris and the full dashboard experience.
-    </Typography><br />
-  </Grid>
+  
+<Grid item xs={12}>
+  <Box
+    sx={{
+      mt: 4,
+      p: 3,
+      borderRadius: 2,
+      backgroundColor: 'background.neutral', // soft gray
+      boxShadow: 1,
+      display: 'flex',
+      alignItems: 'flex-start',
+      gap: 2,
+    }}
+  >
+    <Iconify icon="mdi:alert-circle-outline" width={35} color="#f57c00" />
+
+    <Box>
+      <Typography variant="h4" component="h2" gutterBottom>
+        No Active License Detected
+      </Typography>
+
+      <Typography variant="subtitle1" sx={{ color: 'text.secondary' }}>
+        Activate a plan below to unlock Stellaris and the full dashboard experience.
+      </Typography>
+    </Box>
+  </Box>< br />
+</Grid>
+
+
+  
 ) : (
   <>
-    <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+    <Grid size={{ xs: 12, md: 6, lg: 4, }}>
       <Box
         sx={{
           mb: 2,
@@ -165,7 +192,7 @@ const handleUpgrade = (plan, priceId) => {
           icon="eos-icons:subscriptions-created"
           centerIcon="tabler:packages"
           chart={{ series: 100 }}
-          sx={{
+          sx={{mt: 4,
   bgcolor: 'transparent',
   color: (t) => t.palette.mode === 'light' ? 'text.primary' : 'common.white',
   [`& .${svgColorClasses.root}`]: {
@@ -191,7 +218,7 @@ const handleUpgrade = (plan, priceId) => {
           icon="solar:key-linear"
           centerIcon="carbon:license"
           chart={{ series: 100 }}
-          sx={{
+          sx={{mt: 4,
   bgcolor: 'transparent',
   color: (t) => theme.palette.mode === 'light' ? 'text.primary' : 'common.white',
   [`& .${svgColorClasses.root}`]: {
@@ -217,7 +244,7 @@ const handleUpgrade = (plan, priceId) => {
           icon="mdi:clock-outline"
           centerIcon="mdi:timer-sand"
           chart={{ series: 100 }}
-          sx={{
+          sx={{mt: 4,
   bgcolor: 'transparent',
   color: (t) => theme.palette.mode === 'light' ? 'text.primary' : 'common.white',
   [`& .${svgColorClasses.root}`]: {
@@ -238,7 +265,7 @@ const handleUpgrade = (plan, priceId) => {
             </Typography>
             <Typography
               sx={{ color: 'text.secondary' }}
-            >Comprehensive access to the AI-powered trading bot and full dashboard suite.</Typography>
+            >Instant access to the trading bots. Full AI Dashboard suite included in every Stellaris plan.</Typography>
           </Box>
 </Grid>
         <Grid size={{ xs: 12, md: 6, lg: 4 }}>
@@ -287,7 +314,8 @@ const handleUpgrade = (plan, priceId) => {
             </Typography>
             <Typography
               sx={{ color: 'text.secondary' }}
-            >Advanced trading metrics and real-time insights — for every trader.</Typography>
+            >Unlock advanced metrics and real-time AI insights to maximize your profits.
+</Typography>
           </Box>      
        </Grid>
        <Grid size={{ xs: 12, md: 6, lg: 4 }}>
@@ -300,15 +328,6 @@ const handleUpgrade = (plan, priceId) => {
   features={['Market Tools', 'AI Assistant', '0 Tokens per day']}
   onUpgrade={() => console.log('Upgrade to Dashboard AI')}
 />
-
-
-         {/**  <EcommerceCurrentBalance
-            title="Free"
-            earning={{ icon: 'material-symbols:lock', text: 'Locked', color: '#c16103'}}
-            refunded={{ icon: 'mdi:thunder', text: '0 (per day)', color: '#c16103'}}
-            orderTotal={{ icon: 'icomoon-free:checkmark', text: 'Included', color: '#7635dc' }}
-            currentBalance={0}
-          />*/}
         </Grid>
         <Grid size={{ xs: 12, md: 6, lg: 4 }}>
 
@@ -320,17 +339,28 @@ const handleUpgrade = (plan, priceId) => {
   features={['Advanced Market Tools', 'AI Assistant', '20 Tokens per day']}
   onUpgrade={() => console.log('Upgrade to Dashboard AI')}
 />
-
-
-         {/**   <EcommerceCurrentBalance
-            title="Next-Gen AI Dashboard"
-            earning={{ icon: 'icomoon-free:checkmark', text: 'Included', color: '#7635dc' }}
-            refunded={{ icon: 'mdi:thunder', text: '20 (per day)', color: '#c16103'}}
-            orderTotal={{ icon: 'icomoon-free:checkmark', text: 'Included', color: '#7635dc' }}
-            currentBalance={49}
-          />*/}
         </Grid>
+        <Grid size={12} sx={{ mt: 4 }}>
+  <Box sx={{ mb: 1 }}>
+    <Typography variant="h4" sx={{ mb: 1 }}>
+      Bonus Tokens
+    </Typography>
+    <Typography sx={{ color: 'text.secondary' }}>
+      Top up your token balance to keep chatting with the OrbitAI Assistant.
+    </Typography>
+  </Box>
+</Grid>
+
     </Grid>
+
+    <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+            <Box sx={{ mb: 2 }}>
+           <UpgradeBlock sx={{ mt: 4, maxWidth: 700 }} />
+          </Box>      
+       </Grid>
+
+
+       
 </DashboardContent>
 
   );
