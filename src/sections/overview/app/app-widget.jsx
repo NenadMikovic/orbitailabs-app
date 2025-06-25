@@ -41,7 +41,8 @@ const open = Boolean(anchorEl);
 
 console.log('Total:', total, 'Parsed:', Date.parse(total));
 
-  const chartColors = chart.colors ?? [theme.palette.primary.light, theme.palette.primary.main];
+  const chartColors = ['#569CFF', '#C16EFF'];
+
 
   const chartOptions = useChart({
     
@@ -128,7 +129,7 @@ console.log('Total:', total, 'Parsed:', Date.parse(total));
     height: 40,
   }}
 >
-  <Iconify icon={centerIcon} width={28} sx={{ color: 'common.white' }} />
+  <Iconify icon={centerIcon} width={28} sx={{ color: 'text.primary' }} />
 </Box>
       </Box>
       

@@ -10,8 +10,8 @@ import { supabase } from 'src/lib/supabase';
 import { DashboardContent } from 'src/layouts/dashboard';
 
 import { Iconify } from 'src/components/iconify';
-import OpenAIBox from 'src/components/openai/OpenAIBox';
 import { svgColorClasses } from 'src/components/svg-color';
+import ChatAssistant from 'src/components/chat/ChatAssistant';
 import { LicensePlanCard } from 'src/components/licenses-grid/LicensePlanCard';
 
 import { AppWidget } from 'src/sections/overview/app/app-widget';
@@ -136,7 +136,7 @@ const handleUpgrade = (plan, priceId) => {
             />
             </Grid >
 <Grid size={{ xs: 12, md: 4, lg: 4 }}>
-          <OpenAIBox />
+         <ChatAssistant pageContext="OrbitAI Labs license management, subscription plans, activation, expiration, and upgrades." />
         </Grid>
 
 {license.plan === 'free' ? (
@@ -166,9 +166,12 @@ const handleUpgrade = (plan, priceId) => {
           centerIcon="tabler:packages"
           chart={{ series: 100 }}
           sx={{
-            bgcolor: '#1c1247',
-            [`& .${svgColorClasses.root}`]: { color: 'info.light' },
-          }}
+  bgcolor: 'transparent',
+  color: (t) => t.palette.mode === 'light' ? 'text.primary' : 'common.white',
+  [`& .${svgColorClasses.root}`]: {
+    color: (t) => theme.palette.mode === 'light' ? theme.palette.grey[800] : theme.palette.info.light,
+  },
+}}
         />
       </Box>
     </Grid>
@@ -189,9 +192,12 @@ const handleUpgrade = (plan, priceId) => {
           centerIcon="carbon:license"
           chart={{ series: 100 }}
           sx={{
-            bgcolor: '#1c1247',
-            [`& .${svgColorClasses.root}`]: { color: 'info.light' },
-          }}
+  bgcolor: 'transparent',
+  color: (t) => theme.palette.mode === 'light' ? 'text.primary' : 'common.white',
+  [`& .${svgColorClasses.root}`]: {
+    color: (t) => theme.palette.mode === 'light' ? theme.palette.grey[800] : theme.palette.info.light,
+  },
+}}
         />
       </Box>
     </Grid>
@@ -212,9 +218,12 @@ const handleUpgrade = (plan, priceId) => {
           centerIcon="mdi:timer-sand"
           chart={{ series: 100 }}
           sx={{
-            bgcolor: '#1c1247',
-            [`& .${svgColorClasses.root}`]: { color: 'info.light' },
-          }}
+  bgcolor: 'transparent',
+  color: (t) => theme.palette.mode === 'light' ? 'text.primary' : 'common.white',
+  [`& .${svgColorClasses.root}`]: {
+    color: (t) => theme.palette.mode === 'light' ? theme.palette.grey[800] : theme.palette.info.light,
+  },
+}}
         />
       </Box>
     </Grid>
@@ -233,15 +242,6 @@ const handleUpgrade = (plan, priceId) => {
           </Box>
 </Grid>
         <Grid size={{ xs: 12, md: 6, lg: 4 }}>
-          {/** <EcommerceCurrentBalance
-            icon="/assets/icons/pricing/pricing-icon-01.svg"
-            title="Starter"
-            earning={{ icon: 'icomoon-free:checkmark', text: 'Included', color: '#7635dc' }}
-            refunded={{ icon: 'mdi:thunder', text: '30 (per day)', color: '#c16103'}}
-            orderTotal={{ icon: 'icomoon-free:checkmark', text: 'Included', color: '#7635dc' }}
-            currentBalance={99}
-          /> */}
-
           <LicensePlanCard
   plan="starter"
   current={license.plan === 'starter'}
@@ -252,15 +252,6 @@ const handleUpgrade = (plan, priceId) => {
 />
         </Grid>
         <Grid size={{ xs: 12, md: 6, lg: 4 }}>
-          {/**<EcommerceCurrentBalance
-          icon="/assets/icons/pricing/pricing-icon-02.svg"
-            title="Pro"
-            earning={{ icon: 'icomoon-free:checkmark', text: 'Included', color: '#7635dc' }}
-            refunded={{ icon: 'mdi:thunder', text: '50 (per day)', color: '#c16103'}}
-            orderTotal={{ icon: 'icomoon-free:checkmark', text: 'Included', color: '#7635dc' }}
-            currentBalance={149}
-          />*/}
-
           <LicensePlanCard
   plan="pro"
   current={license.plan === 'pro'}
@@ -279,15 +270,6 @@ const handleUpgrade = (plan, priceId) => {
     transition: 'box-shadow 0.3s ease-in-out',
   }}
 >
- {/**  <EcommerceCurrentBalance
-  icon="/assets/icons/pricing/pricing-icon-03.svg"
-    title="Elite"
-    earning={{ icon: 'icomoon-free:checkmark', text: 'Included', color: '#7635dc' }}
-    refunded={{ icon: 'mdi:thunder', text: 'Unlimited', color: '#c16103'}}
-    orderTotal={{ icon: 'icomoon-free:checkmark', text: 'Included', color: '#7635dc' }}
-    currentBalance={199}
-  />*/}
-
   <LicensePlanCard
   plan="elite"
   current={license.plan === 'elite'}

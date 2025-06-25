@@ -11,7 +11,7 @@ import { _files } from 'src/_mock';
 import { DashboardContent } from 'src/layouts/dashboard';
 
 import { Iconify } from 'src/components/iconify';
-import OpenAIBox from 'src/components/openai/OpenAIBox';
+import ChatAssistant from 'src/components/chat/ChatAssistant';
 
 import { EcommerceWelcome } from 'src/sections/overview/e-commerce/ecommerce-welcome';
 
@@ -133,7 +133,7 @@ const [folderName, setFolderName] = useState('');
             />
             </Grid >
 <Grid size={{ xs: 12, md: 4, lg: 4 }}>
-          <OpenAIBox />
+          <ChatAssistant pageContext="OrbitAI Labs license management, subscription plans, activation, expiration, and upgrades." />
         </Grid>
         <Grid size={{ xs: 12, md: 12 }}>
 <Box sx={{ mt: 5 }}>
