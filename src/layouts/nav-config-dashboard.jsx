@@ -120,8 +120,8 @@ export const navData = [
         icon: ICONS.insider,
       },
       {
-        title: 'Session Times',
-        path: paths.dashboard.product.root,
+        title: 'Global Sessions',
+        path: paths.dashboard.general.sessions,
         icon: ICONS.sessions,
       },
       {

@@ -4,7 +4,7 @@ import Card from '@mui/material/Card';
 import { useTheme } from '@mui/material/styles';
 import CardHeader from '@mui/material/CardHeader';
 
-import { fNumber, fShortenNumber } from 'src/utils/format-number';
+import { fNumber } from 'src/utils/format-number';
 
 import { Chart, useChart, ChartSelect, ChartLegends } from 'src/components/chart';
 
@@ -13,7 +13,7 @@ import { Chart, useChart, ChartSelect, ChartLegends } from 'src/components/chart
 export function AppAreaInstalled({ title, subheader, chart, sx, ...other }) {
   const theme = useTheme();
 
-  const [selectedSeries, setSelectedSeries] = useState('2023');
+  const [selectedSeries, setSelectedSeries] = useState('2025');
 
   const chartColors = chart.colors ?? [
     theme.palette.primary.dark,
@@ -55,7 +55,7 @@ export function AppAreaInstalled({ title, subheader, chart, sx, ...other }) {
       <ChartLegends
         colors={chartOptions?.colors}
         labels={chart.series[0].data.map((item) => item.name)}
-        values={[fShortenNumber(1234), fShortenNumber(6789), fShortenNumber(1012)]}
+       // values={[fShortenNumber(1234), fShortenNumber(6789), fShortenNumber(1012)]}
         sx={{ px: 3, gap: 3 }}
       />
 

@@ -15,13 +15,14 @@ import { logoClasses } from './classes';
 export function Logo({ sx, disabled, className, href = '/', isSingle = true, ...other }) {
   const theme = useTheme();
 
+
   const uniqueId = useId();
 
   const TEXT_PRIMARY = theme.vars.palette.text.primary;
   const PRIMARY_LIGHT = theme.vars.palette.primary.light;
   const PRIMARY_MAIN = theme.vars.palette.primary.main;
   const PRIMARY_DARKER = theme.vars.palette.primary.dark;
-
+const fillColor = TEXT_PRIMARY; // Default fill color for the logo
   /*
     * OR using local (public folder)
     *
@@ -46,37 +47,44 @@ export function Logo({ sx, disabled, className, href = '/', isSingle = true, ...
     */
 
   const singleLogo = (
-    <svg viewBox="8 18 64 64" height="36"  fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id={`${uniqueId}-gradient`} x1="8" y1="18" x2="72" y2="82">
-          <stop offset="0%" stopColor="#9D00FF" />
-          <stop offset="100%" stopColor="#00C2FF" />
-        </linearGradient>
-      </defs>
+    <svg
+  viewBox="0 0 80 80"
+  width="100%"
+  height="100%"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <linearGradient id={`${uniqueId}-gradient`} x1="0" y1="0" x2="80" y2="80">
+      <stop offset="0%" stopColor="#9D00FF" />
+      <stop offset="100%" stopColor="#00C2FF" />
+    </linearGradient>
+  </defs>
 
-      <circle
-        cx="40"
-        cy="50"
-        r="30"
-        stroke={`url(#${uniqueId}-gradient)`}
-        strokeWidth="3"
-        fill="none"
-      />
-      <circle
-        cx="40"
-        cy="50"
-        r="15"
-        stroke="white"
-        strokeWidth="3"
-        fill="none"
-      />
-      <circle
-        cx="65"
-        cy="35"
-        r="4"
-        fill="white"
-      />
-    </svg>
+  <circle
+    cx="40"
+    cy="40"
+    r="30"
+    stroke={`url(#${uniqueId}-gradient)`}
+    strokeWidth="3"
+    fill="none"
+  />
+  <circle
+    cx="40"
+    cy="40"
+    r="15"
+    stroke={fillColor}
+    strokeWidth="3"
+    fill="none"
+  />
+  <circle
+    cx="65"
+    cy="25"
+    r="4"
+    fill={fillColor}
+  />
+</svg>
+
   );
 
   const fullLogo = (
@@ -108,7 +116,7 @@ export function Logo({ sx, disabled, className, href = '/', isSingle = true, ...
         cx="40"
         cy="50"
         r="15"
-        stroke="white"
+        stroke={fillColor}
         strokeWidth="3"
         fill="none"
       />
@@ -118,14 +126,14 @@ export function Logo({ sx, disabled, className, href = '/', isSingle = true, ...
         cx="65"
         cy="35"
         r="4"
-        fill="white"
+        fill={fillColor}
       />
 
       {/* OrbitAI Labs Text */}
       <text
         x="90"
         y="50"
-        fill="white"
+        fill={fillColor}
         fontSize="20"
         fontFamily="Arial, sans-serif"
         fontWeight="bold"
@@ -135,7 +143,7 @@ export function Logo({ sx, disabled, className, href = '/', isSingle = true, ...
       <text
         x="90"
         y="75"
-        fill="white"
+        fill={fillColor}
         fontSize="20"
         fontFamily="Arial, sans-serif"
         fontWeight="bold"

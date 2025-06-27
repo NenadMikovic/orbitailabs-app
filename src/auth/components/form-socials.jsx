@@ -26,9 +26,6 @@ export function FormSocials({
       <IconButton color="inherit" onClick={signInWithGoogle}>
         <Iconify width={22} icon="socials:google" />
       </IconButton>
-      <IconButton color="inherit" onClick={signInWithTwitter}>
-        <Iconify width={22} icon="socials:twitter" />
-      </IconButton>
     </Box>
   );
 }

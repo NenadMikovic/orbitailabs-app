@@ -145,8 +145,6 @@ export function SplitSignUpView() {
 
       <FormSocials
         signInWithGoogle={() => {}}
-        singInWithGithub={() => {}}
-        signInWithTwitter={() => {}}
       />
     </>
   );

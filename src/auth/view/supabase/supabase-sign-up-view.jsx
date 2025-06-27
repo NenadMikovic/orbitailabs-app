@@ -17,6 +17,8 @@ import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
+import { supabase } from 'src/lib/supabase';
+
 import { Iconify } from 'src/components/iconify';
 import { Form, Field } from 'src/components/hook-form';
 import { AnimateLogoRotate } from 'src/components/animate';
@@ -170,8 +172,7 @@ export function SupabaseSignUpView() {
       <FormDivider />
 
       <FormSocials
-        signInWithGoogle={() => {}}
-        signInWithTwitter={() => {}}
+        signInWithGoogle={() => {supabase.auth.signInWithOAuth({ provider: 'google' });}}
       />
     </>
   );

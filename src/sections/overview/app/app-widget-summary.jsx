@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import { useTheme } from '@mui/material/styles';
 
-import { fNumber, fPercent } from 'src/utils/format-number';
+import { fNumber } from 'src/utils/format-number';
 
 import { Iconify } from 'src/components/iconify';
 import { Chart, useChart } from 'src/components/chart';
@@ -31,9 +31,11 @@ export function AppWidgetSummary({ title, percent, total, chart, sx, ...other })
       <Iconify
         width={24}
         icon={
-          percent < 0
-            ? 'solar:double-alt-arrow-down-bold-duotone'
-            : 'solar:double-alt-arrow-up-bold-duotone'
+          percent === 'Overlaps account for 70% of global trading volume.'
+          ? ''
+           : percent === 'Medium Volatility'
+          ? 'solar:double-alt-arrow-down-bold-duotone'
+           : 'solar:double-alt-arrow-up-bold-duotone'
         }
         sx={{
           flexShrink: 0,
@@ -44,12 +46,10 @@ export function AppWidgetSummary({ title, percent, total, chart, sx, ...other })
 
       <Box component="span" sx={{ typography: 'subtitle2' }}>
         {percent > 0 && '+'}
-        {fPercent(percent)}
+        {(percent)}
       </Box>
 
-      <Box component="span" sx={{ typography: 'body2', color: 'text.secondary' }}>
-        last 7 days
-      </Box>
+      <Box component="span" sx={{ typography: 'body2', color: 'text.secondary' }} />
     </Box>
   );
 
@@ -68,9 +68,15 @@ export function AppWidgetSummary({ title, percent, total, chart, sx, ...other })
       {...other}
     >
       <Box sx={{ flexGrow: 1 }}>
-        <Box sx={{ typography: 'subtitle2' }}>{title}</Box>
+        <Box sx={{ typography: 'subtitle2', display: 'flex', alignItems: 'center', gap: 1 }}>
+  {title === 'Stellaris Strategy' && (
+    <Iconify icon="mdi:lightbulb-on-outline" width={20} sx={{ color: 'warning.main' }} />
+  )}
+  {title}
+</Box>
 
-        <Box sx={{ mt: 1.5, mb: 1, typography: 'h3' }}>{fNumber(total)}</Box>
+
+        <Box sx={{ mt: 1.5, mb: 1, typography: 'body1' }}>{(total)}</Box>
 
         {renderTrending()}
       </Box>

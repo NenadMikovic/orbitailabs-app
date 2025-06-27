@@ -157,8 +157,6 @@ export function CenteredSignUpView() {
 
       <FormSocials
         signInWithGoogle={() => {}}
-        singInWithGithub={() => {}}
-        signInWithTwitter={() => {}}
       />
     </>
   );

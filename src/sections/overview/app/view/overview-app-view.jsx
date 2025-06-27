@@ -124,7 +124,7 @@ export function OverviewAppView() {
               ],
               series: [
                 {
-                  name: '2022',
+                  name: '2025',
                   data: [
                     {
                       name: 'Asia',
