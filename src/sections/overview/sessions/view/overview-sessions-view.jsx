@@ -414,7 +414,7 @@ const isActive = virtualHour >= session.start && virtualHour < session.end;
         </Grid>
         <Box sx={{ flexGrow: 1 }}>
 <Grid container spacing={2} alignItems="stretch">
-<Grid size={8} sx={{ display: 'flex' }}>
+<Grid size={{ xs: 12, md: 8 }} sx={{ display: 'flex' }}>
           <EcommerceYearlySales
           sx={{ flexGrow: 1 }}
             title="Session Volatility by Day"
@@ -456,7 +456,7 @@ const isActive = virtualHour >= session.start && virtualHour < session.end;
           />
         </Grid>
 
-        <Grid size={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Stack spacing={2}>
                   <AppWidgetSummary
                     title="Stellaris Strategy"
@@ -491,45 +491,6 @@ const isActive = virtualHour >= session.start && virtualHour < session.end;
                 </Grid>
                 </Grid>
 </Box>
-{/** <Grid size={{ xs: 12, md: 6, lg: 8 }}>
-          <AppAreaInstalled
-            title="Session Volatility by Day"
-            subheader="Average pip range during major sessions (Mon–Fri)"
-            chart={{
-              categories: [
-                'Mon',
-                'Tue',
-                'Wed',
-                'Thu',
-                'Fri',
-              ],
-              colors: ['#60A5FA', '#F472B6', '#3B82F6', '#22C55E'],
-              series: [
-                {
-                  name: '2025',
-                  data: [
-                    {
-                      name: 'Sydney',
-                      data: [12.4, 10.8, 13.2, 9.9, 11.1],
-                    },
-                    {
-                      name: 'Tokyo',
-                      data: [18.2, 19.1, 20.5, 21.0, 17.6],
-                    },
-                    {
-                      name: 'London',
-                      data: [30.2, 32.0, 35.5, 33.1, 28.7],
-                    },
-                    {
-                      name: 'New York',
-                      data: [25.5, 28.1, 34.0, 29.5, 24.4],
-                    },
-                  ],
-                },
-              ],
-            }}
-          />
-        </Grid> */}
 
       </Grid>
     </DashboardContent>

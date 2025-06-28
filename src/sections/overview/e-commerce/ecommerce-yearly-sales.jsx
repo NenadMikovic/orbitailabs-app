@@ -30,7 +30,7 @@ export function EcommerceYearlySales({ title, subheader, chart, sx, ...other }) 
   return (
     <Card
   sx={{
-    backgroundColor:
+    backgroundColor: 
       theme.palette.mode === 'dark' ? '#111827' : '#111827',
     ...sx,
   }}

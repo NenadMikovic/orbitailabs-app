@@ -7,8 +7,6 @@ import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 
-import { paths } from 'src/routes/paths';
-
 import { CONFIG } from 'src/global-config';
 import { supabase } from 'src/lib/supabase';
 
@@ -25,18 +23,43 @@ export function NavUpgrade({ sx, ...other }) {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      if (!user?.id) return;
-  
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('display_name, photo_url')
-        .eq('id', user.id)
-        .single();
-  
-      if (!error) {
-        setProfile(data);
-      }
-    };
+  if (!user?.id) return;
+
+  // 1. Get profile data
+  const { data: profileData, error: profileError } = await supabase
+    .from('profiles')
+    .select('display_name, photo_url')
+    .eq('id', user.id)
+    .single();
+
+  // 2. Get license plan from licenses
+  const { data: licenseData, error: licenseError } = await supabase
+    .from('licenses')
+    .select('plan')
+    .eq('user_id', user.id)
+    .eq('is_active', true) // optionally only active ones
+    .single();
+
+  if (!profileError && !licenseError) {
+  const plan = licenseData?.plan ?? 'Free';
+
+  const formattedPlan = plan.charAt(0).toUpperCase() + plan.slice(1).toLowerCase();
+
+  const planColor = {
+    free: 'default',
+    dashboard: 'success',
+    starter: 'success',
+    pro: 'info',
+    elite: 'secondary', // or use a custom color like '#7E57C2' for deep purple
+  }[plan.toLowerCase()] || 'default';
+
+  setProfile({
+    ...profileData,
+    planLabel: formattedPlan,
+    planColor,
+  });
+}
+};
   
     fetchProfile();
   }, [user?.id]);
@@ -53,19 +76,21 @@ export function NavUpgrade({ sx, ...other }) {
           </Avatar>
 
           <Label
-            color="success"
-            variant="filled"
-            sx={{
-              top: -6,
-              px: 0.5,
-              left: 40,
-              height: 20,
-              position: 'absolute',
-              borderBottomLeftRadius: 2,
-            }}
-          >
-            Free
-          </Label>
+  color={profile?.planColor}
+  variant="filled"
+  sx={{
+    top: -6,
+    px: 0.5,
+    left: 40,
+    height: 20,
+    position: 'absolute',
+    borderBottomLeftRadius: 2,
+    textTransform: 'capitalize',
+  }}
+>
+  {profile?.planLabel}
+</Label>
+
         </Box>
 
         <Box sx={{ mb: 2, mt: 1.5, width: 1 }}>
@@ -86,14 +111,16 @@ export function NavUpgrade({ sx, ...other }) {
           </Typography>
         </Box>
 
-        <Button
-          variant="contained"
-          href={paths.minimalStore}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Upgrade to Pro
-        </Button>
+       {profile?.planLabel?.toLowerCase() !== 'elite' && (
+  <Button
+    variant="contained"
+    href="https://www.orbitailabs.com/#pricing"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Upgrade to Elite
+  </Button>
+)}
       </Box>
     </Box>
   );
@@ -101,7 +128,16 @@ export function NavUpgrade({ sx, ...other }) {
 
 // ----------------------------------------------------------------------
 
-export function UpgradeBlock({ sx, ...other }) {
+export function UpgradeBlock({
+  sx,
+  title = 'OrbitAI Assistant',
+  subtitle = 'Your daily tokens reset every 24 hours and are used first. Bonus tokens are only used when you exceed your daily limit — they never expire.',
+  buttonText = 'Buy Tokens',
+  onButtonClick,
+  buttonHref,
+  ...other
+}) {
+
   return (
     <Box
       sx={[
@@ -121,6 +157,7 @@ export function UpgradeBlock({ sx, ...other }) {
       ]}
       {...other}
     >
+      {/* Border */}
       <Box
         sx={(theme) => ({
           top: 0,
@@ -133,6 +170,7 @@ export function UpgradeBlock({ sx, ...other }) {
         })}
       />
 
+      {/* Animated Rocket */}
       <Box
         component={m.img}
         animate={{ y: [12, -12, 12] }}
@@ -152,6 +190,7 @@ export function UpgradeBlock({ sx, ...other }) {
         }}
       />
 
+      {/* Content */}
       <Box
         sx={{
           display: 'flex',
@@ -161,7 +200,7 @@ export function UpgradeBlock({ sx, ...other }) {
         }}
       >
         <Box component="span" sx={{ typography: 'h5', color: 'common.white' }}>
-          OrbitAI Assistant
+          {title}
         </Box>
 
         <Box
@@ -171,17 +210,20 @@ export function UpgradeBlock({ sx, ...other }) {
             mt: 0.5,
             color: 'common.white',
             typography: 'subtitle2',
-            maxWidth: {
-      xs: '320px',   // full width on mobile
-      sm: '550px',  // limit width on tablets and up
-    },
+            maxWidth: { xs: '320px', sm: '550px' },
           }}
         >
-          Your daily tokens reset every 24 hours and are used first. <br />Bonus tokens are only used when you exceed your daily limit — they never expire.
+          {subtitle}
         </Box>
 
-        <Button variant="contained" size="small" color="warning">
-          Buy Tokens
+        <Button
+          variant="contained"
+          size="small"
+          color="warning"
+          onClick={onButtonClick}
+          href={buttonHref}
+        >
+          {buttonText}
         </Button>
       </Box>
     </Box>

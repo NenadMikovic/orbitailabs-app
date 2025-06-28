@@ -184,7 +184,12 @@ console.log('Avatar URL:', profile?.photo_url);
           {renderList()}
 
           <Box sx={{ px: 2.5, py: 3 }}>
-            <UpgradeBlock />
+           <UpgradeBlock
+  title="OrbitAI Assistant"
+  subtitle="Top up your balance instantly. Tokens never expire."
+  buttonText="Buy Tokens"
+  buttonHref="#"
+/>
           </Box>
         </Scrollbar>
 
