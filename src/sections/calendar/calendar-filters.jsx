@@ -92,11 +92,12 @@ export function CalendarFilters({
         px: 2.5,
         display: 'flex',
         flexDirection: 'column',
+        mt: -1,
       }}
     >
-      <Typography variant="subtitle2" sx={{ mb: 1 }}>
+    {/**   <Typography variant="subtitle2" sx={{ mb: 1 }}>
         Colors
-      </Typography>
+      </Typography>*/}
       <ColorPicker
         options={colorOptions}
         value={currentFilters.colors}

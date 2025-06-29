@@ -1,14 +1,13 @@
 import { z as zod } from 'zod';
 import { useCallback } from 'react';
+import { useForm } from 'react-hook-form';
 import { uuidv4 } from 'minimal-shared/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, Controller } from 'react-hook-form';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
 import DialogActions from '@mui/material/DialogActions';
 
 import { fIsAfter } from 'src/utils/format-time';
@@ -16,10 +15,8 @@ import { fIsAfter } from 'src/utils/format-time';
 import { createEvent, updateEvent, deleteEvent } from 'src/actions/calendar';
 
 import { toast } from 'src/components/snackbar';
-import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
 import { Form, Field } from 'src/components/hook-form';
-import { ColorPicker } from 'src/components/color-utils';
 
 // ----------------------------------------------------------------------
 
@@ -102,13 +99,13 @@ export function CalendarForm({ currentEvent, colorOptions, onClose }) {
     <Form methods={methods} onSubmit={onSubmit}>
       <Scrollbar sx={{ p: 3, bgcolor: 'background.neutral' }}>
         <Stack spacing={3}>
-          <Field.Text name="title" label="Title" />
+          <Field.Text name="title" label="Title" disabled/>
 
-          <Field.Text name="description" label="Description" multiline rows={3} />
+          <Field.Text name="description" label="Description" multiline rows={3} disabled />
 
-          <Field.Switch name="allDay" label="All day" />
+          {/* <Field.Switch name="allDay" label="All day" /> */}
 
-          <Field.DateTimePicker name="start" label="Start date" />
+          <Field.DateTimePicker name="start" label="Start date" disabled />
 
           <Field.DateTimePicker
             name="end"
@@ -119,9 +116,9 @@ export function CalendarForm({ currentEvent, colorOptions, onClose }) {
                 helperText: dateError ? 'End date must be later than start date' : null,
               },
             }}
-          />
+          disabled/>
 
-          <Controller
+        {/*   <Controller
             name="color"
             control={control}
             render={({ field }) => (
@@ -131,28 +128,28 @@ export function CalendarForm({ currentEvent, colorOptions, onClose }) {
                 options={colorOptions}
               />
             )}
-          />
+          /> */}
         </Stack>
       </Scrollbar>
 
       <DialogActions sx={{ flexShrink: 0 }}>
         {!!currentEvent?.id && (
-          <Tooltip title="Delete event">
-            <IconButton color="error" onClick={onDelete}>
+           <Tooltip title="Delete event">
+           {/** <IconButton color="error" onClick={onDelete}>
               <Iconify icon="solar:trash-bin-trash-bold" />
-            </IconButton>
+            </IconButton>*/}
           </Tooltip>
         )}
 
         <Box sx={{ flexGrow: 1 }} />
 
         <Button variant="outlined" color="inherit" onClick={onClose}>
-          Cancel
+          Close
         </Button>
 
-        <Button type="submit" variant="contained" loading={isSubmitting} disabled={dateError}>
+        {/** <Button type="submit" variant="contained" loading={isSubmitting} disabled={dateError}>
           Save changes
-        </Button>
+        </Button> */}
       </DialogActions>
     </Form>
   );
