@@ -39,6 +39,7 @@ import { Iconify } from 'src/components/iconify';
 import ChatAssistant from 'src/components/chat/ChatAssistant';
 
 import { EcommerceWelcome } from 'src/sections/overview/e-commerce/ecommerce-welcome';
+import { AnalyticsWidgetSummary } from 'src/sections/overview/analytics/analytics-widget-summary';
 
 import { useAuthContext } from 'src/auth/hooks';
 
@@ -272,7 +273,8 @@ export function CalendarView() {
             mt: 4,
           }}
         >
-          <Typography variant="h4">Upcoming High-Impact News</Typography>
+          <Typography variant="h4">Upcoming High-Impact News <br /><Typography sx={{ color: 'text.secondary' }}>Stay ahead of the markets with real-time updates on high-impact economic events.</Typography></Typography>
+          <Typography sx={{ color: 'text.secondary' }}>Time Zone: GMT+2</Typography>
         {/**   <Button
             variant="contained"
             startIcon={<Iconify icon="mingcute:add-line" />}
@@ -354,7 +356,7 @@ export function CalendarView() {
             </Typography>
             <Typography
               sx={{ color: 'text.secondary' }}
-            >See all upcoming events for next week. All times are in GMT+2.</Typography>
+            >View all financial events for the upcoming week.</Typography>
           </Box>
 </Grid>
 
@@ -372,7 +374,7 @@ export function CalendarView() {
           <TableCell>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <Iconify icon="material-symbols:insights" width={18} />
-              <Typography variant="subtitle2">Time</Typography>
+              <Typography variant="subtitle2">Time (GMT+2)</Typography>
             </Box>
           </TableCell>
           <TableCell>
@@ -402,7 +404,10 @@ export function CalendarView() {
             date: '2025-07-01',
             time: '14:30',
             symbol: 'EUR',
-            news: 'ECB President Lagarde Speaks',
+            news: {
+    icon: <Iconify icon="material-symbols:folder" width={18} sx={{ mr: 0.5, verticalAlign: 'middle', color: '#fff' }} />,
+    text: 'ECB President Lagarde Speaks',
+  },
             prediction: {
               forecast: 'BUY near $81.50; TP $84.00, SL below $80.50.',
               previous: '$80.00',
@@ -412,7 +417,10 @@ export function CalendarView() {
             date: '2025-07-02',
             time: '16:00',
             symbol: 'USD',
-            news: 'BOE Gov Bailey Speaks',
+            news: {
+    icon: <Iconify icon="material-symbols:folder" width={18} sx={{ mr: 0.5, verticalAlign: 'middle', color: '#d50000' }} />,
+    text: 'ECB President Lagarde Speaks',
+  },
             prediction: {
               forecast: 'BUY near $81.50; TP $84.00, SL below $80.50.',
               previous: '$80.00',
@@ -422,7 +430,10 @@ export function CalendarView() {
             date: '2025-07-03',
             time: '15:30',
             symbol: 'GBP',
-            news: 'Construction Spending m/m',
+            news: {
+    icon: <Iconify icon="material-symbols:folder" width={18} sx={{ mr: 0.5, verticalAlign: 'middle', color: '#fdd835' }} />,
+    text: 'ECB President Lagarde Speaks',
+  },
             prediction: {
               forecast: 'BUY near $81.50; TP $84.00, SL below $80.50.',
               previous: '$80.00',
@@ -432,7 +443,10 @@ export function CalendarView() {
             date: '2025-07-04',
             time: '13:00',
             symbol: 'JPY',
-            news: 'API Weekly Statistical Bulletin',
+            news: {
+    icon: <Iconify icon="material-symbols:folder" width={18} sx={{ mr: 0.5, verticalAlign: 'middle', color: '#fff' }} />,
+    text: 'ECB President Lagarde Speaks',
+  },
             prediction: {
               forecast: 'BUY near $81.50; TP $84.00, SL below $80.50.',
               previous: '$80.00',
@@ -442,7 +456,10 @@ export function CalendarView() {
             date: '2025-07-05',
             time: '10:00',
             symbol: 'CAD',
-            news: 'Caixin Services PMI',
+            news: {
+    icon: <Iconify icon="material-symbols:folder" width={18} sx={{ mr: 0.5, verticalAlign: 'middle', color: '#e65100' }} />,
+    text: 'ECB President Lagarde Speaks',
+  },
             prediction: {
               forecast: 'BUY near $81.50; TP $84.00, SL below $80.50.',
               previous: '$80.00',
@@ -452,7 +469,10 @@ export function CalendarView() {
             date: '2025-07-06',
             time: '11:30',
             symbol: 'CAD',
-            news: 'Spanish Services PMI',
+            news: {
+    icon: <Iconify icon="material-symbols:folder" width={18} sx={{ mr: 0.5, verticalAlign: 'middle', color: '#fdd835' }} />,
+    text: 'ECB President Lagarde Speaks',
+  },
             prediction: {
               forecast: 'BUY near $81.50; TP $84.00, SL below $80.50.',
               previous: '$80.00',
@@ -463,7 +483,15 @@ export function CalendarView() {
             <TableCell>{row.date}</TableCell>
             <TableCell>{row.time}</TableCell>
             <TableCell>{row.symbol}</TableCell>
-            <TableCell>{row.news}</TableCell>
+            <TableCell>
+  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+    {row.news.icon}
+    <Typography variant="body2" component="span">
+      {row.news.text}
+    </Typography>
+  </Box>
+</TableCell>
+
             <TableCell>
               {userPlan === 'free' ? (
                 <Typography color="text.secondary" sx={{ fontStyle: 'italic', opacity: 0.5 }}>
@@ -488,8 +516,74 @@ export function CalendarView() {
       </TableBody>
     </Table>
   </TableContainer>
-</Grid>
+</Grid><br />
+<Grid container spacing={{ xs: 2, md: 3 }} alignItems="stretch">
+<Grid size={{ xs: 12, sm: 6, md: 4 }} sx={{ display: 'flex' }}>
+          <AnalyticsWidgetSummary sx={{ flexGrow: 1 }}
+            title="Routine or minor economic updates that rarely move the markets significantly."
+            percent="Low-impact news"
+            color="warning"
+           total="Stellaris Strategy"
+           subtitle="Tip: Maintain normal operation; minimal market disruption expected."
+            icon={
+              <Iconify
+                 icon="material-symbols:folder"
+                 width={40}
+                 height={40}
+                 sx={{ color: '#fdd835' }}
+               />
+            }
+            chart={{
+              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+              series: [22, 8, 35, 50, 82, 84, 77, 12],
+            }}
+          />
+        </Grid>
 
+        <Grid size={{ xs: 12, sm: 6, md: 4 }} sx={{ display: 'flex' }}>
+          <AnalyticsWidgetSummary sx={{ flexGrow: 1 }}
+            title="Economic data that may influence the market, but typically causes moderate volatility."
+            percent="Medium-impact news"
+            total="Stellaris Strategy"
+            subtitle="Tip: Stay aware; may cause brief fluctuations without lasting trends."
+            color="warning"
+            icon={
+               <Iconify
+                 icon="material-symbols:folder"
+                 width={40}
+                 height={40}
+                 sx={{ color: '#e65100' }}
+               />
+            }
+            chart={{
+              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+              series: [56, 47, 40, 62, 73, 30, 23, 54],
+            }}
+          />
+        </Grid>
+
+        <Grid size={{ xs: 12, sm: 6, md: 4 }} sx={{ display: 'flex' }}>
+          <AnalyticsWidgetSummary sx={{ flexGrow: 1 }}
+            title="Major economic events or announcements that tend to cause significant volatility in the financial markets."
+            percent="High-impact news"
+            total="Stellaris Strategy"
+            subtitle="Tip: Pause or limit trading to reduce risk during volatile periods"
+            color="warning"
+            icon={
+              <Iconify
+                 icon="material-symbols:folder"
+                 width={40}
+                 height={40}
+                 sx={{ color: '#d50000' }}
+               />
+            }
+            chart={{
+              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+              series: [40, 70, 50, 28, 70, 75, 7, 64],
+            }}
+          />
+        </Grid>
+        </Grid>
       </DashboardContent>
     
       <Dialog

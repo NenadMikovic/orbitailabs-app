@@ -1,10 +1,10 @@
-import { varAlpha } from 'minimal-shared/utils';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
-import { fNumber, fPercent, fShortenNumber } from 'src/utils/format-number';
+import { fNumber } from 'src/utils/format-number';
 
 import { CONFIG } from 'src/global-config';
 
@@ -19,6 +19,7 @@ export function AnalyticsWidgetSummary({
   icon,
   title,
   total,
+  subtitle,
   chart,
   percent,
   color = 'primary',
@@ -63,7 +64,7 @@ export function AnalyticsWidgetSummary({
       <Iconify width={20} icon={percent < 0 ? 'eva:trending-down-fill' : 'eva:trending-up-fill'} />
       <Box component="span" sx={{ typography: 'subtitle2' }}>
         {percent > 0 && '+'}
-        {fPercent(percent)}
+        {(percent)}
       </Box>
     </Box>
   );
@@ -76,8 +77,8 @@ export function AnalyticsWidgetSummary({
           boxShadow: 'none',
           position: 'relative',
           color: `${color}.darker`,
-          backgroundColor: 'common.white',
-          backgroundImage: `linear-gradient(135deg, ${varAlpha(theme.vars.palette[color].lighterChannel, 0.48)}, ${varAlpha(theme.vars.palette[color].lightChannel, 0.48)})`,
+          backgroundColor: 'secondary',
+          backgroundImage: 'linear-gradient(135deg, #FAFAFA,rgb(128, 128, 128))',
         }),
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}
@@ -96,9 +97,20 @@ export function AnalyticsWidgetSummary({
         }}
       >
         <Box sx={{ flexGrow: 1, minWidth: 112 }}>
-          <Box sx={{ mb: 1, typography: 'subtitle2' }}>{title}</Box>
+          <Box sx={{ mb: 0.5 }}>
+  <Typography variant="subtitle2">{title}</Typography>
+</Box><br />
 
-          <Box sx={{ typography: 'h4' }}>{fShortenNumber(total)}</Box>
+               <Box sx={{ typography: 'subtitle2', alignItems: 'center', gap: 1 }}>
+  <Typography variant="subtitle2"><Iconify
+                 icon="mdi:lightbulb-on-outline"
+               />{total}</Typography>
+  {subtitle && (
+    <Typography variant="subtitle2" color="subtitle2" >
+      {subtitle}
+    </Typography>
+  )}
+</Box>
         </Box>
 
         <Chart
