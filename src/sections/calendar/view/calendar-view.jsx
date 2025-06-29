@@ -11,6 +11,7 @@ import { useBoolean, useSetState } from 'minimal-shared/hooks';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
+import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import { useTheme } from '@mui/material/styles';
@@ -21,9 +22,11 @@ import { fDate, fIsAfter, fIsBetween } from 'src/utils/format-time';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 import { CALENDAR_COLOR_OPTIONS } from 'src/_mock/_calendar';
-import { updateEvent, useGetEvents } from 'src/actions/calendar';
 
 import { Iconify } from 'src/components/iconify';
+import ChatAssistant from 'src/components/chat/ChatAssistant';
+
+import { EcommerceWelcome } from 'src/sections/overview/e-commerce/ecommerce-welcome';
 
 import { CalendarRoot } from '../styles';
 import { useEvent } from '../hooks/use-event';
@@ -35,12 +38,66 @@ import { CalendarFiltersResult } from '../calendar-filters-result';
 
 // ----------------------------------------------------------------------
 
+const LOCAL_EVENTS = [
+  {
+    id: '1',
+    title: 'USD - Non-Farm Employment Change',
+    start: '2025-07-01T14:30:00',
+    end: '2025-07-01T15:00:00',
+    color: 'red',
+    allDay: false,
+  },
+  {
+    id: '2',
+    title: 'USD - ISM Manufacturing PMI',
+    start: '2025-07-01T16:00:00',
+    end: '2025-07-01T16:30:00',
+    color: 'error',
+    allDay: false,
+  },
+  {
+    id: '3',
+    title: 'EUR - ECB President Lagarde Speaks',
+    start: '2025-07-02T10:30:00',
+    end: '2025-07-02T11:30:00',
+    color: 'error',
+    allDay: false,
+  },
+  {
+    id: '4',
+    title: 'USD - JOLTS Job Openings',
+    start: '2025-07-02T16:00:00',
+    end: '2025-07-02T16:30:00',
+    color: 'error',
+    allDay: false,
+  },
+  {
+    id: '5',
+    title: 'USD - FOMC Meeting Minutes',
+    start: '2025-07-03T20:00:00',
+    end: '2025-07-03T21:00:00',
+    color: 'error',
+    allDay: false,
+  },
+  {
+    id: '6',
+    title: 'CAD - Employment Change',
+    start: '2025-07-05T14:30:00',
+    end: '2025-07-05T15:00:00',
+    color: 'error',
+    allDay: false,
+  },
+];
+
+
+
 export function CalendarView() {
   const theme = useTheme();
 
   const openFilters = useBoolean();
 
-  const { events, eventsLoading } = useGetEvents();
+  const events = LOCAL_EVENTS;
+  const eventsLoading = false;
 
   const filters = useSetState({ colors: [], startDate: null, endDate: null });
   const { state: currentFilters } = filters;
@@ -105,15 +162,36 @@ export function CalendarView() {
   return (
     <>
       <DashboardContent maxWidth="xl" sx={{ ...flexStyles }}>
+        <Grid container spacing={3}>
+                        <Grid size={{ xs: 12, md: 8 }}>
+                           <EcommerceWelcome
+                          title="Economic Calendar"
+                          description={
+                          <><br />
+                       <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+              <Iconify icon="ep:info-filled" width={30} sx={{ mt: '3px' }} />
+              <Typography variant="body1">
+                Track all high-impact economic news and announcements in one place. <br /> Get aives you a clear view of upcoming events that can move the markets—interest rate decisions, inflation reports, employment data, and more. Updated in real-time, so you’re always prepared.
+              </Typography>
+            </Box>
+                         </>
+                          }
+                            />
+                            </Grid >
+                <Grid size={{ xs: 12, md: 4, lg: 4 }}>
+                         <ChatAssistant pageContext="OrbitAI Labs license management, subscription plans, activation, expiration, and upgrades." />
+                        </Grid>
+                        </Grid>
         <Box
           sx={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             mb: { xs: 3, md: 5 },
+            mt: 4,
           }}
         >
-          <Typography variant="h4">Calendar</Typography>
+          <Typography variant="h4">Economic Calendar</Typography>
           <Button
             variant="contained"
             startIcon={<Iconify icon="mingcute:add-line" />}
@@ -161,7 +239,7 @@ export function CalendarView() {
               initialDate={date}
               initialView={view}
               dayMaxEventRows={3}
-              eventDisplay="block"
+              eventDisplay="auto"
               events={dataFiltered}
               headerToolbar={false}
               select={onSelectRange}
@@ -169,12 +247,12 @@ export function CalendarView() {
               aspectRatio={3}
               eventDrop={(arg) => {
                 startTransition(() => {
-                  onDropEvent(arg, updateEvent);
+                  onDropEvent(arg);
                 });
               }}
               eventResize={(arg) => {
                 startTransition(() => {
-                  onResizeEvent(arg, updateEvent);
+                  onResizeEvent(arg);
                 });
               }}
               plugins={[

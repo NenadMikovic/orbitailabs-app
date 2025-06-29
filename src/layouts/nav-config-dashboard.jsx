@@ -126,7 +126,7 @@ export const navData = [
       },
       {
         title: 'Economic Calendar',
-        path: paths.dashboard.order.root,
+        path: paths.dashboard.calendar,
         icon: ICONS.calendar,
       },
       {
